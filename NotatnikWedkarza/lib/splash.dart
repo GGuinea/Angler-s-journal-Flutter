@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'signup.dart';
+import 'dashboard.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -81,7 +82,13 @@ class _SplashScreenState extends State<SplashScreen> {
                     padding: EdgeInsets.only(top: 390, left: 20, right: 20),
                     child: Center(
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          print("TODO: CREATE VALIDATION");
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                            builder: (context) => Dashboard(),
+                          ));
+                        },
                         elevation: 10,
                         minWidth: double.infinity,
                         color: Colors.blue,
