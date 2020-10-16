@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 AppBar topBar = AppBar(
   backgroundColor: Colors.blueAccent,
   title: Image.asset(
-      'assets/images/fish.png',
-      fit: BoxFit.cover,
-      width: 100,
+    'assets/images/fish.png',
+    fit: BoxFit.cover,
+    width: 100,
   ),
   actions: <Widget>[
     IconButton(
@@ -34,3 +34,4 @@ AppBar topBar = AppBar(
     ),
   ],
 );
+
