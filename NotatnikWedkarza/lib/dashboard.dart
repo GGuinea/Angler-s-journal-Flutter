@@ -8,11 +8,10 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   final List<Widget> _children = [
     PlaceholderWidget(Colors.white),
     PlaceholderWidget(Colors.deepOrange),
-    PlaceholderWidget(Colors.green),
   ];
 
   @override
@@ -25,15 +24,11 @@ class _DashboardState extends State<Dashboard> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: new Icon(Icons.art_track_outlined),
+            icon: Icon(Icons.art_track_outlined),
             label: "Atlas",
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.home_outlined),
-            label: "Strona glowna",
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.anchor_outlined), label: "Polowy")
+              icon: Icon(Icons.anchor_outlined), label: "Polowy"),
         ],
       ),
     );
