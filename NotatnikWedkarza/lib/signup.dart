@@ -36,7 +36,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       )),
                   Container(
-                    padding: EdgeInsets.only(top: 180, left: 20, right: 20),
+                    padding: EdgeInsets.only(top: 150, left: 20, right: 20),
                     child: TextFormField(
                         decoration: InputDecoration(
                       labelStyle: TextStyle(
@@ -47,7 +47,7 @@ class _SignupPageState extends State<SignupPage> {
                     )),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 240, left: 20, right: 20),
+                    padding: EdgeInsets.only(top: 200, left: 20, right: 20),
                     child: TextFormField(
                         decoration: InputDecoration(
                       labelStyle: TextStyle(
@@ -58,14 +58,14 @@ class _SignupPageState extends State<SignupPage> {
                     )),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 300, left: 20, right: 20),
+                    padding: EdgeInsets.only(top: 250, left: 20, right: 20),
                     child: TextFormField(
                         decoration: InputDecoration(
                       labelStyle: TextStyle(
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
                       ),
-                      labelText: "PSEUDONIM",
+                      labelText: "NAZWA UZYTKOWNIKA",
                     )),
                   ),
                   Container(
