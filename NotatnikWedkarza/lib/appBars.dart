@@ -27,11 +27,17 @@ AppBar topBar = AppBar(
       icon: Icon(Icons.highlight),
     ),
     IconButton(
-      onPressed: () {
-        print("go to settings");
-      },
       icon: Icon(Icons.account_circle_outlined),
+      onPressed: () {}
     ),
   ],
 );
 
+AppBar defaultAppbar = AppBar(
+  backgroundColor: Colors.blueAccent,
+  title: Image.asset(
+    'assets/images/fish.png',
+    fit: BoxFit.cover,
+    width: 100,
+  ),
+);
