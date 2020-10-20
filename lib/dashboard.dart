@@ -40,6 +40,7 @@ class _DashboardState extends State<Dashboard> {
       child: Scaffold(
         endDrawer: CustomDrawer(),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.blueAccent,
           title: Image.asset(
             'assets/images/fish.png',
