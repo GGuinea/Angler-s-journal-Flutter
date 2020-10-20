@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'placeholder_widget.dart';
 import 'drawer.dart';
+import 'fishingDiary.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class _DashboardState extends State<Dashboard> {
   int _currentIndex = 1;
   final List<Widget> _children = [
     PlaceholderWidget(Colors.white),
-    PlaceholderWidget(Colors.deepOrange),
+    Diary(),
   ];
 
   DateTime currentTime;
