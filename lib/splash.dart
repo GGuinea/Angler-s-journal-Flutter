@@ -156,6 +156,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         SizedBox(width: 3),
                         MaterialButton(
                           onPressed: () {
+                            checkConnecton();
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => SignupPage(),
                             ));
