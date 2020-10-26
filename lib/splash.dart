@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'signup.dart';
 import 'dashboard.dart';
+import 'services/api_service.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -8,6 +9,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final ApiService api = ApiService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     alignment: Alignment(1.0, 0),
                     padding: EdgeInsets.only(top: 340),
                     child: MaterialButton(
-                      onPressed: () {},
+                      onPressed: (){},
                       child: Text("Przypomnij haslo",
                           style: TextStyle(
                             fontFamily: 'Montserrat',
@@ -83,6 +86,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: Center(
                       child: MaterialButton(
                         onPressed: () {
+                          checkConnecton();
                           print("TODO: CREATE VALIDATION");
                           Navigator.of(context)
                               .pushReplacement(MaterialPageRoute(
@@ -174,5 +178,32 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> checkConnecton() {
+    Future<bool> isConnected = api.makePing();
+    if (isConnected == Future.value(false)) {
+      print("Nie dziala");
+      return showDialog<void>(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+                title: Text("Problem z polaczeniem do serwera"),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text(
+                      'Ok',
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ]);
+          });
+    } else {
+      print("Dziala");
+      return Future.value(null);
+    }
   }
 }
