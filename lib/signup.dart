@@ -1,3 +1,4 @@
+import 'package:NotatnikWedkarza/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -8,9 +9,17 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final ApiService api = ApiService();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
 
-  void validate() {
-    formKey.currentState.validate();
+  bool isValid() {
+    if(formKey.currentState.validate()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -47,6 +56,7 @@ class _SignupPageState extends State<SignupPage> {
                     Container(
                       padding: EdgeInsets.only(top: 150, left: 20, right: 20),
                       child: TextFormField(
+                          controller: _emailController,
                         decoration: InputDecoration(
                           labelStyle: TextStyle(
                             fontFamily: 'Montserrat',
@@ -63,6 +73,7 @@ class _SignupPageState extends State<SignupPage> {
                     Container(
                       padding: EdgeInsets.only(top: 220, left: 20, right: 20),
                       child: TextFormField(
+                          controller: _passwordController,
                         decoration: InputDecoration(
                           labelStyle: TextStyle(
                             fontFamily: 'Montserrat',
@@ -80,6 +91,7 @@ class _SignupPageState extends State<SignupPage> {
                     Container(
                       padding: EdgeInsets.only(top: 290, left: 20, right: 20),
                       child: TextFormField(
+                          controller: _usernameController,
                         decoration: InputDecoration(
                           labelStyle: TextStyle(
                             fontFamily: 'Montserrat',
@@ -98,7 +110,12 @@ class _SignupPageState extends State<SignupPage> {
                       padding: EdgeInsets.only(top: 390, left: 20, right: 20),
                       child: Center(
                         child: MaterialButton(
-                          onPressed: validate,
+                          onPressed:() {
+                            if(isValid()){
+                              printOutput(api.createUser(_usernameController.text, _emailController.text,
+                                      _passwordController.text));
+                            }
+                          },
                           elevation: 10,
                           minWidth: double.infinity,
                           color: Colors.blue,
@@ -146,5 +163,25 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ),
     );
+  }
+  Future<void> printOutput(Future<String> output) async {
+    String outputString = await output;
+      return showDialog<void>(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+                title: Text('$outputString'),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text(
+                      'Ok',
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ]);
+          });
   }
 }

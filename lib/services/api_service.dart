@@ -1,10 +1,11 @@
 import 'package:http/http.dart';
+import 'dart:convert';
 
 class ApiService {
   final String apiUrl = "https://fishing-diary-backend.herokuapp.com/api";
+  var roles = ["user"];
 
   Future<bool> makePing() async {
-    print("Uruchamiam");
     Response res = await post(
       '$apiUrl/ping',
       headers: <String, String>{
@@ -16,5 +17,26 @@ class ApiService {
     } else {
       return Future.value(false);
     }
+  }
+
+  Future<String> createUser(
+      String username, String email, String password) async {
+    Map data = {
+      'name': username,
+      'username': username,
+      'email': email,
+      'password': password,
+      'role': roles
+    };
+    Response response = await post(
+      '$apiUrl/auth/signup',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(data),
+    );
+    print(response.body);
+    print(response.statusCode);
+    return Future.value(response.body);
   }
 }
