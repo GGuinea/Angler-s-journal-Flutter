@@ -39,4 +39,21 @@ class ApiService {
     print(response.statusCode);
     return Future.value(response.body);
   }
+
+  Future<String> loginUser (String username, String password) async {
+    Map data = {
+      'name': username,
+      'password': password,
+    };
+    Response response = await post(
+      '$apiUrl/auth/signin',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(data),
+    );
+    print(response.body);
+    print(response.statusCode);
+    return Future.value(response.body);
+  }
 }
