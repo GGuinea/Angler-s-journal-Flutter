@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'signup.dart';
 import 'dashboard.dart';
+import 'package:http/http.dart';
+import 'common/commonMethods.dart';
 import 'services/api_service.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   final ApiService api = ApiService();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final _usernameCotroller = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
@@ -54,17 +56,17 @@ class _SplashScreenState extends State<SplashScreen> {
                     Container(
                       padding: EdgeInsets.only(top: 230, left: 20, right: 20),
                       child: TextFormField(
-                        controller: _emailController,
+                        controller: _usernameCotroller,
                         decoration: InputDecoration(
                           labelStyle: TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
                           ),
-                          labelText: "EMAIL",
+                          labelText: "USERNAME",
                         ),
                         validator: MultiValidator([
                           RequiredValidator(errorText: "Wymagane"),
-                          EmailValidator(errorText: "Nie poprawny mail")
+                          //EmailValidator(errorText: "Nie poprawny mail")
                         ]),
                       ),
                     ),
@@ -103,13 +105,20 @@ class _SplashScreenState extends State<SplashScreen> {
                       padding: EdgeInsets.only(top: 390, left: 20, right: 20),
                       child: Center(
                         child: MaterialButton(
-                          onPressed: () {
-                            checkConnecton();
-                            print("TODO: CREATE VALIDATION");
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                              builder: (context) => Dashboard(),
-                            ));
+                          onPressed: () async {
+                            if (isValid(formKey)) {
+                              var restult = api.loginUser(_usernameCotroller.text,
+                                  _passwordController.text);
+                              Response serverResponse = await restult;
+                              if (serverResponse.statusCode == 200) {
+                                Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => Dashboard(),
+                                ));
+                              } else {
+                                printOutput(serverResponse.body, context);
+                              }
+                            }
                           },
                           elevation: 10,
                           minWidth: double.infinity,

@@ -38,9 +38,9 @@ class ApiService {
     return response;
   }
 
-  Future<String> loginUser (String username, String password) async {
+  Future<Response> loginUser (String username, String password) async {
     Map data = {
-      'name': username,
+      'username': username,
       'password': password,
     };
     Response response = await post(
@@ -52,6 +52,6 @@ class ApiService {
     );
     print(response.body);
     print(response.statusCode);
-    return Future.value(response.body);
+    return response;
   }
 }

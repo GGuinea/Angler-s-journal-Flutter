@@ -18,14 +18,6 @@ class _SignupPageState extends State<SignupPage> {
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
 
-  bool isValid() {
-    if (formKey.currentState.validate()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,7 +108,7 @@ class _SignupPageState extends State<SignupPage> {
                       child: Center(
                         child: MaterialButton(
                           onPressed: () async {
-                            if (isValid()) {
+                            if (isValid(formKey)) {
                               var result = api.createUser(
                                   _usernameController.text,
                                   _emailController.text,

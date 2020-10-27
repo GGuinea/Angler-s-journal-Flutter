@@ -17,3 +17,11 @@ import 'package:flutter/material.dart';
           ]);
         });
   }
+
+  bool isValid(GlobalKey<FormState> formKey) {
+    if (formKey.currentState.validate()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
