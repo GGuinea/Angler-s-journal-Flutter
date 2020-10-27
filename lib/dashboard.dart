@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'drawer.dart';
 import 'fishingDiary.dart';
+import 'models/User.dart';
 
 class Dashboard extends StatefulWidget {
+  final User userInfo;
+  Dashboard({this.userInfo});
   @override
-  _DashboardState createState() => _DashboardState();
+  _DashboardState createState() => _DashboardState(userInfo);
 }
 
 class _DashboardState extends State<Dashboard> {
+  final User userInfo;
+  _DashboardState(this.userInfo);
   int _currentIndex = 1;
   final List<Widget> _children = [
     AtlasScreen(),

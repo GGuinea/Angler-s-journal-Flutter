@@ -120,7 +120,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                 print(user.token);
                                 Navigator.of(context)
                                     .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => Dashboard(),
+                                  builder: (context) => Dashboard(userInfo: user),
                                 ));
                               } else {
                                 printOutput(serverResponse.body, context);
