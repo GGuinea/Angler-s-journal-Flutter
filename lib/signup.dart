@@ -1,6 +1,10 @@
 import 'package:NotatnikWedkarza/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'common/commonMethods.dart';
+import 'package:http/http.dart';
+
+import 'splash.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -111,12 +115,21 @@ class _SignupPageState extends State<SignupPage> {
                       padding: EdgeInsets.only(top: 390, left: 20, right: 20),
                       child: Center(
                         child: MaterialButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (isValid()) {
-                              printOutput(api.createUser(
+                              var result = api.createUser(
                                   _usernameController.text,
                                   _emailController.text,
-                                  _passwordController.text));
+                                  _passwordController.text);
+                              Response serverResponse = await result;
+                              printOutput(serverResponse.body, context);
+                              if(serverResponse.statusCode == 200) {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => SplashScreen(),
+                                  )
+                                );
+                              }
                             }
                           },
                           elevation: 10,
@@ -166,24 +179,5 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ),
     );
-  }
-
-  Future<void> printOutput(Future<String> output) async {
-    String outputString = await output;
-    return showDialog<void>(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(title: Text('$outputString'), actions: <Widget>[
-            TextButton(
-              child: Text(
-                'Ok',
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ]);
-        });
   }
 }

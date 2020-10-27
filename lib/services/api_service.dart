@@ -19,7 +19,7 @@ class ApiService {
     }
   }
 
-  Future<String> createUser(
+  Future<Response> createUser(
       String username, String email, String password) async {
     Map data = {
       'name': username,
@@ -35,9 +35,7 @@ class ApiService {
       },
       body: jsonEncode(data),
     );
-    print(response.body);
-    print(response.statusCode);
-    return Future.value(response.body);
+    return response;
   }
 
   Future<String> loginUser (String username, String password) async {
