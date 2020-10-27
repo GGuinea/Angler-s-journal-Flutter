@@ -59,20 +59,21 @@ class _SplashScreenState extends State<SplashScreen> {
                   Container(
                     padding: EdgeInsets.only(top: 290, left: 20, right: 20),
                     child: TextFormField(
+                        obscureText: true,
                         decoration: InputDecoration(
-                      labelStyle: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                      ),
-                      labelText: "HASLO",
-                    )),
+                          labelStyle: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          labelText: "HASLO",
+                        )),
                   ),
                   SizedBox(height: 5),
                   Container(
                     alignment: Alignment(1.0, 0),
                     padding: EdgeInsets.only(top: 340),
                     child: MaterialButton(
-                      onPressed: (){},
+                      onPressed: () {},
                       child: Text("Przypomnij haslo",
                           style: TextStyle(
                             fontFamily: 'Montserrat',

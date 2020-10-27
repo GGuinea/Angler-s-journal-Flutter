@@ -15,7 +15,7 @@ class _SignupPageState extends State<SignupPage> {
   final _emailController = TextEditingController();
 
   bool isValid() {
-    if(formKey.currentState.validate()) {
+    if (formKey.currentState.validate()) {
       return true;
     } else {
       return false;
@@ -56,7 +56,7 @@ class _SignupPageState extends State<SignupPage> {
                     Container(
                       padding: EdgeInsets.only(top: 150, left: 20, right: 20),
                       child: TextFormField(
-                          controller: _emailController,
+                        controller: _emailController,
                         decoration: InputDecoration(
                           labelStyle: TextStyle(
                             fontFamily: 'Montserrat',
@@ -73,7 +73,8 @@ class _SignupPageState extends State<SignupPage> {
                     Container(
                       padding: EdgeInsets.only(top: 220, left: 20, right: 20),
                       child: TextFormField(
-                          controller: _passwordController,
+                        controller: _passwordController,
+                        obscureText: true,
                         decoration: InputDecoration(
                           labelStyle: TextStyle(
                             fontFamily: 'Montserrat',
@@ -91,7 +92,7 @@ class _SignupPageState extends State<SignupPage> {
                     Container(
                       padding: EdgeInsets.only(top: 290, left: 20, right: 20),
                       child: TextFormField(
-                          controller: _usernameController,
+                        controller: _usernameController,
                         decoration: InputDecoration(
                           labelStyle: TextStyle(
                             fontFamily: 'Montserrat',
@@ -110,10 +111,12 @@ class _SignupPageState extends State<SignupPage> {
                       padding: EdgeInsets.only(top: 390, left: 20, right: 20),
                       child: Center(
                         child: MaterialButton(
-                          onPressed:() {
-                            if(isValid()){
-                              printOutput(api.createUser(_usernameController.text, _emailController.text,
-                                      _passwordController.text));
+                          onPressed: () {
+                            if (isValid()) {
+                              printOutput(api.createUser(
+                                  _usernameController.text,
+                                  _emailController.text,
+                                  _passwordController.text));
                             }
                           },
                           elevation: 10,
@@ -164,24 +167,23 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
   }
+
   Future<void> printOutput(Future<String> output) async {
     String outputString = await output;
-      return showDialog<void>(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return AlertDialog(
-                title: Text('$outputString'),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text(
-                      'Ok',
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  )
-                ]);
-          });
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(title: Text('$outputString'), actions: <Widget>[
+            TextButton(
+              child: Text(
+                'Ok',
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ]);
+        });
   }
 }
