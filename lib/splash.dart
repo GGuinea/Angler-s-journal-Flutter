@@ -5,6 +5,8 @@ import 'dashboard.dart';
 import 'package:http/http.dart';
 import 'common/commonMethods.dart';
 import 'services/api_service.dart';
+import 'models/User.dart';
+import 'dart:convert';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -16,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final _usernameCotroller = TextEditingController();
   final _passwordController = TextEditingController();
+  User user = new User();
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +114,10 @@ class _SplashScreenState extends State<SplashScreen> {
                                   _passwordController.text);
                               Response serverResponse = await restult;
                               if (serverResponse.statusCode == 200) {
+                                final jsonDecoded = json.decode(serverResponse.body);
+                                User user = User.fromJson(jsonDecoded);
+                                user.userName = _usernameCotroller.text;
+                                print(user.token);
                                 Navigator.of(context)
                                     .pushReplacement(MaterialPageRoute(
                                   builder: (context) => Dashboard(),
