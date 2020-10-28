@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'models/User.dart';
 import 'settings.dart';
 
 class CustomDrawer extends StatefulWidget {
+  final User userInfo;
+  CustomDrawer({this.userInfo});
   @override
-  _CustomDrawerState createState() => _CustomDrawerState();
+  _CustomDrawerState createState() => _CustomDrawerState(userInfo);
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
+  final User userInfo;
+  _CustomDrawerState(this.userInfo);
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text("Luminesco"),
-            accountEmail: Text("Luminesco@gmail.com"),
+            accountName: Text(userInfo.userName),
+            accountEmail: Text("Undefined"),
             currentAccountPicture: CircleAvatar(
               child: Text(
-                "L",
+                userInfo.userName[0],
               ),
               backgroundColor: Colors.white,
             ),

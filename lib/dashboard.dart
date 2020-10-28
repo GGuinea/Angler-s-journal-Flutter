@@ -43,7 +43,7 @@ class _DashboardState extends State<Dashboard> {
     return WillPopScope(
       onWillPop: () => popped(),
       child: Scaffold(
-        endDrawer: CustomDrawer(),
+        endDrawer: CustomDrawer(userInfo: userInfo),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.blueAccent,
