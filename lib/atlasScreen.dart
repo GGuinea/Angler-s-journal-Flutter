@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'fishList.dart';
 
 class AtlasScreen extends StatefulWidget {
   @override
   _AtlasScreenState createState() => _AtlasScreenState();
 }
 
-final List<Widget> listOfElements = [];
+final List<Widget> listOfElements = [
+  FishList()
+];
 
 Widget cards(String name, int index, context) {
   return Card(
@@ -19,9 +22,9 @@ Widget cards(String name, int index, context) {
             gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [Colors.lightBlue, Colors.blueAccent]),
+                colors: [Colors.lightBlue.shade50, Colors.blueAccent]),
             border: Border.all(
-              color: Colors.black,
+              color: Colors.grey,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(12),
@@ -46,6 +49,7 @@ class _AtlasScreenState extends State<AtlasScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey.shade100,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20),

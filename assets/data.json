@@ -1,5 +1,4 @@
-{
-  "items": [
+ [
     {
       "index": 1,
       "name": "Amur bialy",
@@ -51,7 +50,7 @@
     },
     {
       "index": 8,
-      "name": "Karp królewski - Lustrzeń",
+      "name": "Karp królewski",
       "type": "Karpiowate (Cyprinidae)",
       "img": "fishImages/0008cc_02c3beafab607d4fac9a53361de08ee9.jpg",
       "desc": "Woda: rzeka, jezioro, staw Istnieją rozliczne odmiany Może żyć 40 – 50 lat Wymiar ochronny: do 30 cm  Wymiar ochronny nie dotyczy populacji zamieszkujących rzeki. Okres ochronny: brak limit dzienny: 3 szt"
@@ -79,7 +78,7 @@
     },
     {
       "index": 12,
-      "name": "Kiełb krutkowąsy",
+      "name": "Kiełb krotkowąsy",
       "type": "Karpiowate (Cyprinidae)",
       "img": "fishImages/0008cc_c8084dfb4682710b63b78d252323f6e3.jpg",
       "desc": "Woda: strumień, rzeka, ujście, jezioro, staw. Pospolita ryba przydenna Często tworzy duże stada W stawikach pełni „służbę porządkową” Uwagi: Na wodach PZW zgodnie z Regulaminem Amatorskiego Połowu ryb nie posiada wymiaru ani okresu ochronnego."
@@ -231,5 +230,4 @@
       "img": "fishImages/0008cc_d76e0deb4c1fbd9529875db0583105fa.jpg",
       "desc": "Woda: rzeka, ujście, jezioro, staw. Czerwone płetwy Chętnie przebywa przy powierzchni wody Samce podczas tarła z wysypką godową.  Wymiar ochronny: do 15 cm Okres ochronny: Brak"
     }
-  ]
-}
+]
