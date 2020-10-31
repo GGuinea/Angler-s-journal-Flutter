@@ -1,0 +1,235 @@
+{
+  "items": [
+    {
+      "index": 1,
+      "name": "Amur bialy",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_ad29ab9bbc45c25e2ade0aafb63bd037.jpg",
+      "desc": "Woda: stawy, rzeka, ujście, jezioro\nPochodzi ze wschodniej Azji\nŻywi się roślinami wodnymi\nWymiar ochronny: Brak\nOkres ochronny: Brak\nLimit dzienny: 3 szt"
+    },
+    {
+      "index": 2,
+      "name": "Brzana",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_c435b9f41eabed746f37795c08829167.jpg",
+      "desc": " Woda: strumień, rzeka\nTypowa ryba przydenna\nZnaczny spadek liczebności\nW wodach płynących gatunek przewodni krainy brzany\nWymiar ochronny: do 40 cm\nOkres ochronny: od 1 stycznia do 30 czerwca\nLimit dzienny: 3 szt"
+    },
+    {
+      "index": 3,
+      "name": "Certa",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_8e38d15785c0df18fa72c5b263da990a.jpg",
+      "desc": "Woda: rzeka, ujście, jezioro\nWymiar ochronny: do 30 cm \nOkres ochronny: od 1 stycznia do 30 czerwca \nLimit dzienny: 5 szt"
+    },
+    {
+      "index": 4,
+      "name": "Głowacica",
+      "type": "Łososiowate (salmonidae)",
+      "img": "fishImages/0008cc_c3d76043729f4a7c855e97706a70e56e.jpg",
+      "desc": "Woda: rzeki górskie, zimne, silnie natlenione. \nWymiar ochronny: 70 cm. \nOkres ochronny: 1 marca – 31 maja \nLimit połowów: 1 sztuka tygodniowo"
+    },
+    {
+      "index": 5,
+      "name": "Jaz",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_8d8cf9b894e88a39a32e2f7258b53b6d.jpg",
+      "desc": " Woda: rzeka, ujście, jezioro. \nW Niemczech gatunek zagrożony Forma wyjściowa słynnej złotej orfy Wędruje na tarło w górę rzeki.\nWymiar ochronny: do 25 cm \nOkres ochronny: brak \nLimit dzienny: 10 szt"
+    },
+    {
+      "index": 6,
+      "name": "Jelec",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_40534330cc00bc56a47af530d5f51656.jpg",
+      "desc": " Woda: rzeka, ujście, jezioro. Ryba stadna preferująca szybki nurt Jak na rybę karpiowatą niezwykle ruchliwy Samiec z wysypką godową. Wymiar ochronny: do 15 cm Okres ochronny: brak"
+    },
+    {
+      "index": 7,
+      "name": "Karaś",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_2d99bcb54eeec5397f044a77e81a6cf2.jpg",
+      "desc": "Woda: strumień, rzeka, ujście, jezioro, staw. Bardzo pospolity Niezwykle odporny i żywotny Chętnie trzymany w stawach. Wymiar ochronny: brak Okres ochronny: brak"
+    },
+    {
+      "index": 8,
+      "name": "Karp królewski - Lustrzeń",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_02c3beafab607d4fac9a53361de08ee9.jpg",
+      "desc": "Woda: rzeka, jezioro, staw Istnieją rozliczne odmiany Może żyć 40 – 50 lat Wymiar ochronny: do 30 cm  Wymiar ochronny nie dotyczy populacji zamieszkujących rzeki. Okres ochronny: brak limit dzienny: 3 szt"
+    },
+    {
+      "index": 9,
+      "name": "Karp pełnołuski",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_ff75f7287b0b5dfe627d384ee8db4d97.jpg",
+      "desc": "Woda: rzeka, jezioro, staw Istnieją rozliczne odmiany Może żyć 40 – 50 lat Forma dzika (sazan) jest zagrożona wymarciem. Wymiar ochronny: do 30 cm  Wymiar ochronny nie dotyczy populacji zamieszkujących rzeki. Okres ochronny: brak Limit dzienny: 3 szt"
+    },
+    {
+      "index": 10,
+      "name": "Kiełb",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_7b954aa61ca43ff2ad8094cf986fe863.jpg",
+      "desc": "Woda: strumień, rzeka, ujście, jezioro, staw. Pospolita ryba przydenna Często tworzy duże stada W stawikach pełni „służbę porządkową” Uwagi: Na wodach PZW zgodnie z Regulaminem Amatorskiego Połowu ryb nie posiada wymiaru ani okresu ochronnego."
+    },
+    {
+      "index": 11,
+      "name": "Kleń",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_6db8acaf5877efbde9aa90ae4ca33a62.jpg",
+      "desc": "Woda: strumień, rzeka, ujście, jezioro. Jedna z najpospolitszych ryb naszych wód płynących. Z wiekiem staje się drapieżnikiem Ciemne obwódki łusek tworzą na ciele siatkowaty wzór Wymiar ochronny: do 25 cm Okres ochronny: brak Inne limity: 10 szt"
+    },
+    {
+      "index": 12,
+      "name": "Kiełb krutkowąsy",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_c8084dfb4682710b63b78d252323f6e3.jpg",
+      "desc": "Woda: strumień, rzeka, ujście, jezioro, staw. Pospolita ryba przydenna Często tworzy duże stada W stawikach pełni „służbę porządkową” Uwagi: Na wodach PZW zgodnie z Regulaminem Amatorskiego Połowu ryb nie posiada wymiaru ani okresu ochronnego."
+    },
+    {
+      "index": 13,
+      "name": "Koza",
+      "type": "Kozowate – piskorzowate (Cobitidae)",
+      "img": "fishImages/0008cc_c0fc50e6833c168261fe3475961a5587.jpg",
+      "desc": "Woda: strumień, rzeka. Mocno bocznie spłaszczone ciało Kolce pod oczami Podługowate plamy na ciele. Uwagi: Gatunek prawnie chroniony – całkowity zakaz połowu."
+    },
+    {
+      "index": 14,
+      "name": "Krąp",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_02ef85a848605ce9eb81aa819989df1d.jpg",
+      "desc": "Woda: rzeka, ujście, jezioro, staw. Uderzająco duże oczy Bardzo podobny do leszcza. Pospolita, plastyczna ekololgicznie ryba. Wymiar ochronny: brak Okres ochronny: brak"
+    },
+    {
+      "index": 15,
+      "name": "Leszcz",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_0b2a608ac1479a27e16ff7efb7ff1161.jpg",
+      "desc": "Woda: rzeka, ujście, jezioro, staw. Pospolita, przydenna ryba stadna Samiec z silną wysypką godową. W wodach płynących gatunek przewodni krainy leszcza. Wymiar ochronny: Brak Okres ochronny: Brak"
+    },
+    {
+      "index": 16,
+      "name": "Lin",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_debc348aa1ad1fc33fa66ab0b14f5475.jpg",
+      "desc": "Woda: strumień, rzeka, ujście, jezioro, staw. Odporna, żywotna ryba Aktywny o zmierzchu i nocą Przydenna ryba spokojnych, obficie zarośniętych wód. Wymiar ochronny: do 25 cm Okres ochronny: brak Inne limity: 4 szt"
+    },
+    {
+      "index": 17,
+      "name": "Lipień",
+      "type": "Lipieniowate (Thymallidae)",
+      "img": "fishImages/0008cc_a11604a1aaad5f72c61d957f9a860e8d.jpg",
+      "desc": "Woda: strumień, rzeka. W wodach płynących górskich, gatunek przewodni krainy lipienia. Bardzo duża płetwa grzebietowa, przypominająca chorągiew. Ryba o wyjątkowo smacznym mięsie, niezwykle atrakcyjna wędkarsko. Wymiar ochronny: do 30 cm Okres ochronny: od 1 marca do 31 maja Inne limity: 3 szt"
+    },
+    {
+      "index": 18,
+      "name": "Miętus",
+      "type": "Dorszowate (Gadidae)",
+      "img": "fishImages/0008cc_11061edb05af57233309ace006ce45e5.jpg",
+      "desc": "Woda: strumień, rzeka, ujście, jezioro. Charakteryzuje się jednym wąsem pod żuchwą. Ma wyśmienite mięso. Ryba wybitnie zimnolubna, aktywna przede wszystkim w zimie. Wymiar ochronny: do 25 cm Okres ochronny: od 1 grudnia do końca lutego"
+    },
+    {
+      "index": 19,
+      "name": "Okoń",
+      "type": "Okoniowate (Percidae)",
+      "img": "fishImages/0008cc_0c4e1dc0c63a1471390e4651a6efa351.jpg",
+      "desc": "Woda: strumień, rzeka, ujście, jezioro, staw. Dwie płetwy grzbietowe Pospolity i liczny w wodach wszelkich typów. Wysoko ceniona ryba sportowa i konsumpcyjna. Wymiar ochronny: do 17 cm Okres ochronny: brak"
+    },
+    {
+      "index": 20,
+      "name": "Piskorz",
+      "type": "Kozowate – piskorzowate (Cobitidae)",
+      "img": "fishImages/0008cc_0a6b67dde280ce51eb6f28fd5a904cac.jpg",
+      "desc": "Woda: strumień, rzeka, ujście, jezioro, staw. Typowa ryba przydenna Słynie jako „meterorolog” Świetnie nadaje się do akwarium. Uwagi: Gatunek prawnie chroniony – całkowity zakaz połowu."
+    },
+    {
+      "index": 21,
+      "name": "Płoć",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_74f9f43fb7110c70bf499244211f3e17.jpg",
+      "desc": "Woda: strumień, rzeka, ujście, jezioro, staw. Jedna z najpospolitszych ryb Dobrze nadaje się do akwarium zimnowodnego Stosunkowo mało wrażliwa na niską jakość wody. Wymiar ochronny: do 20 cm Okres ochronny: brak"
+    },
+    {
+      "index": 22,
+      "name": "Pstrąg tęczowy",
+      "type": "Łososiowate (Salmonidae)",
+      "img": "fishImages/0008cc_85c7027594404a68ac76980b2d67ce04.jpg",
+      "desc": "Rzeki, jeziora, stawy Ryby żyjące na wolności pochodzą z zarybień lub uciekły z hodowli. Wymiar ochronny:w wodach morskich - 40 cm."
+    },
+    {
+      "index": 23,
+      "name": "Pstrąg potokowy",
+      "type": "Łososiowate (Salmonidae)",
+      "img": "fishImages/0008cc_c77c45a8ce73410ab4d8826c4525d8d4.jpg",
+      "desc": "Woda: rzeki górskie, potoki. W Wiśle i jej dopływach od jej źródeł do ujścia rzeki San; w rzece San oraz jej dopływach, w rzece Odra i jej dopływach od granicy państwowej z Czechami do ujścia rzeki Bystrzycy, oraz w rzece Bystrzyca i jej dopływach: okres ochronny: 1.09 – 31.01 wymiar ochronny: 25 cm Pozostałe wody: okres ochronny: 1.09 – 31.12 wymiar ochronny: 30 cm Limit dziennego połowu: 3 sztuki"
+    },
+    {
+      "index": 24,
+      "name": "Różanka",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_25169395229bbf8a407b87d3f6914583.jpg",
+      "desc": "Woda: strumień, rzeka, ujście, jezioro, staw. Symbioza między rybą a małżem Stopniowy spadek liczebności Popularna ryba stawikowa i akwarystyczna. Uwagi: Gatunek prawnie chroniony – całkowity zakaz połowu."
+    },
+    {
+      "index": 25,
+      "name": "Sandacz",
+      "type": "Okoniowate (Percidae)",
+      "img": "fishImages/0008cc_390c9350b88b7a899df9780283df4aca.jpg",
+      "desc": "Woda: rzeka, ujście, jezioro. Samiec strzeże ikry Cenna ryba konsumpcyjna i sportowa Największy krajowy przedstawiciel rodziny okoniowatych. Wymiar ochronny: do 45 cm jOkres ochronny: od 1 marca do 31 czerwca Inne limity: 3 szt"
+    },
+    {
+      "index": 26,
+      "name": "Sum",
+      "type": "Sumowate (Siluridae)",
+      "img": "fishImages/0008cc_caee87d5d3c158269b39d12ef265c50c.jpg",
+      "desc": "Woda: rzeka, ujście, jezioro. Nocny drapieżnik. Jedna z naszych największych i najsilniejszych ryb. Wysoko ceniona przez wędkarzy, smaczna ryba. Wymiar ochronny: do 70 cm Okres ochronny: od 1 listopada do 30 czerwca Inne limity: 1 szt"
+    },
+    {
+      "index": 27,
+      "name": "Śliz",
+      "type": "Przylgowate (Balitoridae)",
+      "img": "fishImages/0008cc_e96e1487262b3adf5f46ff5524e56b14.jpg",
+      "desc": "Woda: strumień, rzeka, jezioro. Samiec strzeże złożonej ikry Wymaga czystej wody Wyraźnie widoczna linia boczna. Uwagi: Gatunek prawnie chroniony – całkowity zakaz połowu."
+    },
+    {
+      "index": 28,
+      "name": "Szczupak",
+      "type": "Szczupakowate (Esocidae)",
+      "img": "fishImages/0008cc_7246cb725c77519d2e996cb7024eb20e.jpg",
+      "desc": "Woda: rzeka, ujście, jezioro, staw. Ma pysk podobny jest do kaczego dzioba Czatuje wśród roślin wodnych Jedna z najważniejszych ryb sportowych. Wymiar ochronny: do 45 cm Okres ochronny: od 1 stycznia do 30 kwietnia Inne limity: 3 szt"
+    },
+    {
+      "index": 29,
+      "name": "Świnka",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_add87ce3e4ca48b51d486352c53adce0.jpg",
+      "desc": "Woda: strumień, rzeka, jezioro. Pysk nosowato wydłużony Zeskrobuje glony Gatunek stopniowo zanikający. Wymiar ochronny: do 25 cm Okres ochronny: od 1 stycznia do 15 maja Inne limity: 5 szt"
+    },
+    {
+      "index": 30,
+      "name": "Ukleja",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_8012e65eac19b98c4f21ef2e16300b33.jpg",
+      "desc": "Woda: strumień, rzeka, ujście, jezioro, staw. Przypowierzchniowa ryba stadna Wyraźnie górny otwór gębowy Dawniej z jej łusek wytwarzano sztuczne perły.Wymiar ochronny: Brak Okres ochronny: Brak"
+    },
+    {
+      "index": 31,
+      "name": "Tołpyga",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_81986647b2f7f1c610bee239aad1243b.jpg",
+      "desc": "Woda: rzeka, ujście, jezioro, staw. Pochodzi ze wschodniej Azji Planktonożerna. U nas w warunkach naturalnych się nie rozmnaża. Wymiar ochronny: Brak Okres ochronny: Brak"
+    },
+    {
+      "index": 32,
+      "name": "Węgorz",
+      "type": "Węgorzowate (Anguillidae)",
+      "img": "fishImages/0008cc_fa994f32ab9608e4eb9d72adf82a66f3.jpg",
+      "desc": "Woda: rzeka, ujście, jezioro, staw. Wędruje na tarło z rzek do morza Bardzo smaczna i ciesząca się dużą popularnością ryba konsumpcyjna W ciągu życia dwukrotnie przepływa Atlantyk. Wymiar ochronny: do 45 cm Inne limity: 4 szt"
+    },
+    {
+      "index": 33,
+      "name": "Wzdręga",
+      "type": "Karpiowate (Cyprinidae)",
+      "img": "fishImages/0008cc_d76e0deb4c1fbd9529875db0583105fa.jpg",
+      "desc": "Woda: rzeka, ujście, jezioro, staw. Czerwone płetwy Chętnie przebywa przy powierzchni wody Samce podczas tarła z wysypką godową.  Wymiar ochronny: do 15 cm Okres ochronny: Brak"
+    }
+  ]
+}
