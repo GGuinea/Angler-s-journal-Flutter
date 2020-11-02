@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'fishList.dart';
 
 class AtlasScreen extends StatefulWidget {
@@ -6,61 +7,67 @@ class AtlasScreen extends StatefulWidget {
   _AtlasScreenState createState() => _AtlasScreenState();
 }
 
-final List<Widget> listOfElements = [
-  FishList()
-];
-
-Widget cards(String name, int index, context) {
-  return Card(
-    child: InkWell(
-      onTap: () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => listOfElements[index]));
-      },
-      child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [Colors.lightBlue.shade50, Colors.blueAccent]),
-            border: Border.all(
-              color: Colors.grey,
-              width: 2,
-            ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          padding: EdgeInsets.only(top: 40, bottom: 40),
-          child: Center(
-              child: Text("$name",
-                  style: TextStyle(
-                    fontFamily: "Montserrat",
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 30,
-                  )))),
-    ),
-    elevation: 20,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-    clipBehavior: Clip.antiAlias,
-  );
-}
+final List<Widget> listOfElements = [FishList()];
 
 class _AtlasScreenState extends State<AtlasScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey.shade100,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: [
-              cards("Atlas ryb", 0, context),
-              cards("List lowisk", 1, context),
-              cards("Regulaminy", 2, context),
-            ],
-          ),
-        ),
+      backgroundColor: Colors.grey,
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.centerRight,
+          end: Alignment.bottomLeft,
+          colors: [Colors.blue, Colors.white],
+        )),
+        child: FutureBuilder(
+            future:
+                DefaultAssetBundle.of(context).loadString('assets/atlas.json'),
+            builder: (context, snapshot) {
+              var newData = jsonDecode(snapshot.data.toString());
+              return ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  listOfElements[newData[index]['index'] - 1]));
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: 32, bottom: 32, left: 16, right: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    InkWell(
+                                      child: Text(
+                                        newData[index]['name'],
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ));
+                },
+                itemCount: newData == null ? 0 : newData.length,
+              );
+            }),
       ),
     );
   }
