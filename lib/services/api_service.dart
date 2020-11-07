@@ -1,3 +1,4 @@
+import 'package:NotatnikWedkarza/models/User.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
@@ -38,7 +39,7 @@ class ApiService {
     return response;
   }
 
-  Future<Response> loginUser (String username, String password) async {
+  Future<Response> loginUser(String username, String password) async {
     Map data = {
       'username': username,
       'password': password,
@@ -52,6 +53,19 @@ class ApiService {
     );
     print(response.body);
     print(response.statusCode);
+    return response;
+  }
+
+  Future<Response> getEntries(User userInfo) async {
+    Response response = await get(
+      '$apiUrl/data/getEntries/' + userInfo.userName,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+    );
+    print('Authentication Bearer ' + userInfo.token);
+    print(response.body);
     return response;
   }
 }

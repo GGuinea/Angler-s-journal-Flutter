@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'models/FishingEntry.dart';
 import 'FishingCart.dart';
+import 'models/User.dart';
+import 'services/api_service.dart';
 
 class Diary extends StatefulWidget {
+  final User userInfo;
+  Diary({this.userInfo});
   @override
-  _DiaryState createState() => _DiaryState();
+  _DiaryState createState() => _DiaryState(userInfo);
 }
 
 class _DiaryState extends State<Diary> {
+  final User userInfo;
+  _DiaryState(this.userInfo);
   final dateControllerStart = TextEditingController();
   final dateControllerEnd = TextEditingController();
   String title = "";
@@ -23,6 +29,7 @@ class _DiaryState extends State<Diary> {
     FishingEntry(
         "Polowy samemu", "assets/images/fish.png", "slabo", "ZPT", "data3"),
   ];
+  final ApiService api = ApiService();
 
   @override
   void dispose() {
@@ -33,6 +40,7 @@ class _DiaryState extends State<Diary> {
 
   @override
   Widget build(BuildContext context) {
+    api.getEntries(userInfo);
     return Scaffold(
         body: Padding(
           padding: EdgeInsets.only(top: 39, left: 20, right: 20),
