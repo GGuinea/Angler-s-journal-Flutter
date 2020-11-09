@@ -21,7 +21,7 @@ class _DiaryState extends State<Diary> {
   String dateStart = "";
   String dateEnd = "s";
   final ApiService api = ApiService();
-  List<FishingEntry> entries = [];
+  var entries = [];
 
   @override
   void dispose() {
@@ -38,7 +38,7 @@ class _DiaryState extends State<Diary> {
 
   void getAllEntres() async {
     var futureEntries = await api.getEntries(userInfo);
-    entries = futureEntries;
+    entries = new List.from(futureEntries.reversed);
   }
 
   Future<bool> fetchData() => Future.delayed(Duration(seconds: 1), () {
@@ -86,7 +86,7 @@ class _DiaryState extends State<Diary> {
                               children: [
                                 InkWell(
                                   child: Text(
-                                    (index + 1).toString() +
+                                    (entries.length - index).toString() +
                                         "# " +
                                         entries[index].name,
                                     style: TextStyle(
