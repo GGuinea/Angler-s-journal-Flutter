@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'models/FishingEntry.dart';
-import 'FishingCart.dart';
 import 'models/User.dart';
 import 'services/api_service.dart';
 
@@ -31,65 +30,78 @@ class _DiaryState extends State<Diary> {
     super.dispose();
   }
 
-  void getAllEntres() async {
-    var futureEntries = await api.getEntries(userInfo);
-    setState(() {
-      entries = futureEntries;
-    });
-  }
-
   @override
   void initState() {
     getAllEntres();
     super.initState();
   }
 
+  void getAllEntres() async {
+    var futureEntries = await api.getEntries(userInfo);
+    entries = futureEntries;
+  }
+
+  Future<bool> fetchData() => Future.delayed(Duration(seconds: 1), () {
+        debugPrint('Step 2, fetch data');
+        initState();
+        return true;
+      });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
       body: Center(
-        child: ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-              child: InkWell(
-                onTap: () {},
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: 22, bottom: 22, left: 16, right: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              child: Text(
-                                entries[index].name,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 22),
-                              ),
-                            )
-                          ],
+        child: FutureBuilder(
+            future: fetchData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: 22, bottom: 22, left: 16, right: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    InkWell(
+                                      child: Text(
+                                        entries[index].name,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Container(
+                                  height: 150,
+                                  width: 150,
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                        Container(
-                          height: 150,
-                          width: 150,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-          itemCount: entries.length,
-        ),
+                      ));
+                },
+                itemCount: entries.length,
+              );
+            }),
       ),
     );
   }
@@ -198,6 +210,6 @@ class _DiaryState extends State<Diary> {
 
   void addFishEntry() {
     Navigator.pop(context);
-    // TODO add here sending to serwer;
+    //pushing server
   }
 }
