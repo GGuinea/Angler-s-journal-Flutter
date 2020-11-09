@@ -21,15 +21,8 @@ class _DiaryState extends State<Diary> {
   String description = "";
   String dateStart = "";
   String dateEnd = "s";
-  List<FishingEntry> fishingEntries = [
-    FishingEntry("Polowy", "assets/images/fish.png", "Nawet spoko",
-        "Zalew slok", "data"),
-    FishingEntry("Wypad z ziomkiem", "assets/images/fish.png", "Nawet spoko",
-        "Zalew wawrzkowizna", "data1"),
-    FishingEntry(
-        "Polowy samemu", "assets/images/fish.png", "slabo", "ZPT", "data3"),
-  ];
   final ApiService api = ApiService();
+  List<FishingEntry> entries = [];
 
   @override
   void dispose() {
@@ -38,37 +31,67 @@ class _DiaryState extends State<Diary> {
     super.dispose();
   }
 
+  void getAllEntres() async {
+    var futureEntries = await api.getEntries(userInfo);
+    setState(() {
+      entries = futureEntries;
+    });
+  }
+
+  @override
+  void initState() {
+    getAllEntres();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    api.getEntries(userInfo);
     return Scaffold(
-        body: Padding(
-          padding: EdgeInsets.only(top: 39, left: 20, right: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: fishingEntries.length,
-                  itemBuilder: (context, index) => ListTile(
-                    title: FishingCard(fishingEntry: fishingEntries[index]),
-                    onTap: () {},
+      backgroundColor: Colors.grey,
+      body: Center(
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+              child: InkWell(
+                onTap: () {},
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 22, bottom: 22, left: 16, right: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InkWell(
+                              child: Text(
+                                entries[index].name,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
+                              ),
+                            )
+                          ],
+                        ),
+                        Container(
+                          height: 150,
+                          width: 150,
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            );
+          },
+          itemCount: entries.length,
         ),
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.grey,
-            splashColor: Colors.blue,
-            onPressed: showAlertDialog,
-            child: Icon(
-              Icons.add,
-              color: Colors.blue,
-              size: 30,
-            )));
+      ),
+    );
   }
 
   void showAlertDialog() {
@@ -175,9 +198,6 @@ class _DiaryState extends State<Diary> {
 
   void addFishEntry() {
     Navigator.pop(context);
-    setState(() {
-      fishingEntries.add(FishingEntry(
-          title, 'assets/images/fish.png', description, waterName, dateStart));
-    });
+    // TODO add here sending to serwer;
   }
 }

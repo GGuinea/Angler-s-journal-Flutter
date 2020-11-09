@@ -1,3 +1,4 @@
+import 'package:NotatnikWedkarza/models/FishingEntry.dart';
 import 'package:NotatnikWedkarza/models/User.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
@@ -56,7 +57,7 @@ class ApiService {
     return response;
   }
 
-  Future<Response> getEntries(User userInfo) async {
+  Future<List<FishingEntry>> getEntries(User userInfo) async {
     Response response = await get(
       '$apiUrl/data/getEntries/' + userInfo.userName,
       headers: <String, String>{
@@ -64,8 +65,15 @@ class ApiService {
         'Authorization': 'Bearer ' + userInfo.token,
       },
     );
-    print('Authentication Bearer ' + userInfo.token);
-    print(response.body);
-    return response;
+    //print('Authentication Bearer ' + userInfo.token);
+    var entries = List<FishingEntry>();
+    if (response.statusCode == 200) {
+      print(response.body);
+      final jsonDecoded = json.decode(response.body);
+      for (var jsonObject in jsonDecoded) {
+        entries.add(FishingEntry.fromJson(jsonObject));
+      }
+    }
+    return entries;
   }
 }
