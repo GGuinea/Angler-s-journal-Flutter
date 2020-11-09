@@ -25,11 +25,17 @@ class _FishListState extends State<FishList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
       appBar: AppBar(
         title: Text("Atlas ryb"),
       ),
-      body: Center(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.bottomCenter,
+            colors: [Colors.blue, Colors.white],
+          ),
+        ),
         child: FutureBuilder(
             future:
                 DefaultAssetBundle.of(context).loadString('assets/data.json'),

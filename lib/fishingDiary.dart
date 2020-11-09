@@ -42,7 +42,6 @@ class _DiaryState extends State<Diary> {
   }
 
   Future<bool> fetchData() => Future.delayed(Duration(seconds: 1), () {
-        debugPrint('Step 2, fetch data');
         initState();
         return true;
       });
@@ -50,58 +49,78 @@ class _DiaryState extends State<Diary> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
-      body: Center(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.centerRight,
+            colors: [Colors.blue, Colors.white],
+          ),
+        ),
         child: FutureBuilder(
-            future: fetchData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return ListView.builder(
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: InkWell(
-                        onTap: () {},
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: 22, bottom: 22, left: 16, right: 16),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          future: fetchData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                  child: InkWell(
+                    onTap: () {},
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: 22, bottom: 22, left: 16, right: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    InkWell(
-                                      child: Text(
+                                InkWell(
+                                  child: Text(
+                                    (index + 1).toString() +
+                                        "# " +
                                         entries[index].name,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Container(
-                                  height: 150,
-                                  width: 150,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 22),
+                                  ),
                                 )
                               ],
                             ),
-                          ),
+                            Container(
+                              height: 150,
+                              width: 150,
+                            )
+                          ],
                         ),
-                      ));
-                },
-                itemCount: entries.length,
-              );
-            }),
+                      ),
+                    ),
+                  ),
+                );
+              },
+              itemCount: entries.length,
+            );
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: showAlertDialog,
+        backgroundColor: Colors.orange[500],
+        splashColor: Colors.purple[500],
+        child: Icon(
+          Icons.add,
+          color: Colors.blue,
+          size: 20,
+        ),
       ),
     );
   }

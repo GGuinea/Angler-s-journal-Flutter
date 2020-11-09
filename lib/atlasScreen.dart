@@ -13,14 +13,14 @@ class _AtlasScreenState extends State<AtlasScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
       body: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.centerRight,
-          end: Alignment.bottomLeft,
-          colors: [Colors.blue, Colors.white],
-        )),
+          gradient: LinearGradient(
+            begin: Alignment.centerRight,
+            end: Alignment.bottomLeft,
+            colors: [Colors.blue, Colors.white],
+          ),
+        ),
         child: FutureBuilder(
             future:
                 DefaultAssetBundle.of(context).loadString('assets/atlas.json'),
