@@ -210,7 +210,7 @@ class _DiaryState extends State<Diary> {
   void addFishEntry() {
     FishingEntry newEntry =
         new FishingEntry(1, title, "img", description, waterName, dateStart);
-    var response = api.addEntry(newEntry, userInfo);
+    api.addEntry(newEntry, userInfo);
     Navigator.pop(context);
   }
 }
