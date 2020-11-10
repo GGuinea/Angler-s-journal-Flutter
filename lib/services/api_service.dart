@@ -76,4 +76,27 @@ class ApiService {
     }
     return entries;
   }
+
+  Future<Response> addEntry(FishingEntry entry, User userInfo) async {
+    Map data = {
+      'username': userInfo.userName,
+      'title': entry.name,
+      'date': entry.dateTime,
+      'place': entry.nameOfThePlace,
+      'desc': entry.description,
+      'file': entry.img,
+    };
+    Response response = await post(
+      '$apiUrl/data/addEntry',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+      body: jsonEncode(data),
+    );
+    //print('Authentication Bearer ' + userInfo.token);
+    print(response.statusCode);
+    print(response.body);
+    return response;
+  }
 }

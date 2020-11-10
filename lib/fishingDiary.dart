@@ -14,19 +14,16 @@ class _DiaryState extends State<Diary> {
   final User userInfo;
   _DiaryState(this.userInfo);
   final dateControllerStart = TextEditingController();
-  final dateControllerEnd = TextEditingController();
   String title = "";
   String waterName = "";
   String description = "";
   String dateStart = "";
-  String dateEnd = "s";
   final ApiService api = ApiService();
   var entries = [];
 
   @override
   void dispose() {
     dateControllerStart.dispose();
-    dateControllerEnd.dispose();
     super.dispose();
   }
 
@@ -179,23 +176,6 @@ class _DiaryState extends State<Diary> {
                                 date.toString().substring(0, 10);
                             dateStart = dateControllerStart.text;
                           }),
-                      TextField(
-                          readOnly: true,
-                          controller: dateControllerEnd,
-                          decoration: InputDecoration(
-                            hintText: "Koniec",
-                          ),
-                          onTap: () async {
-                            var date = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2100),
-                            );
-                            dateControllerEnd.text =
-                                date.toString().substring(0, 10);
-                            dateEnd = dateControllerEnd.text;
-                          }),
                       Padding(
                         padding: EdgeInsets.only(top: 4),
                       ),
@@ -228,7 +208,9 @@ class _DiaryState extends State<Diary> {
   }
 
   void addFishEntry() {
+    FishingEntry newEntry =
+        new FishingEntry(1, title, "img", description, waterName, dateStart);
+    var response = api.addEntry(newEntry, userInfo);
     Navigator.pop(context);
-    //pushing server
   }
 }
