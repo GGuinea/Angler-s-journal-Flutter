@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'models/FishingEntry.dart';
 import 'models/User.dart';
+import 'newEntryScreen.dart';
 import 'services/api_service.dart';
 
 class Diary extends StatefulWidget {
@@ -67,7 +68,9 @@ class _DiaryState extends State<Diary> {
                 return Padding(
                   padding: EdgeInsets.only(top: 10, left: 10, right: 10),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      print(entries.length - index);
+                    },
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -82,21 +85,32 @@ class _DiaryState extends State<Diary> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 InkWell(
-                                  child: Text(
-                                    (entries.length - index).toString() +
-                                        "# " +
-                                        entries[index].name,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            (entries.length - index).toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 31),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            entries[index].name,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
-                            Container(
-                              height: 150,
-                              width: 150,
-                            )
                           ],
                         ),
                       ),
@@ -110,7 +124,11 @@ class _DiaryState extends State<Diary> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: showAlertDialog,
+        onPressed: () {
+          Navigator.of(context).push(new MaterialPageRoute(
+            builder: (context) => NewEntryScreen(),
+          ));
+        },
         backgroundColor: Colors.orange[500],
         splashColor: Colors.purple[500],
         child: Icon(
@@ -175,6 +193,14 @@ class _DiaryState extends State<Diary> {
                             dateControllerStart.text =
                                 date.toString().substring(0, 10);
                             dateStart = dateControllerStart.text;
+                          }),
+                      TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Zlowione ryby',
+                          ),
+                          onChanged: (val) {
+                            print(val);
+                            description = val;
                           }),
                       Padding(
                         padding: EdgeInsets.only(top: 4),
