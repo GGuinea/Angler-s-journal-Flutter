@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:NotatnikWedkarza/models/Fish.dart';
 import 'package:NotatnikWedkarza/models/StaticFishAtlas.dart';
-import 'package:NotatnikWedkarza/views/diary/details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

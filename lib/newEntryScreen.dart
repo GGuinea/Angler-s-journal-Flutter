@@ -25,7 +25,8 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
   @override
   Widget build(BuildContext context) {
     void _showPhotoLibrary() async {
-      final file = await ImagePicker.pickImage(source: ImageSource.gallery);
+      ImagePicker imagePicker;
+      final file = await imagePicker.getImage(source: ImageSource.gallery);
 
       setState(() {
         _path = file.path;
