@@ -1,7 +1,13 @@
+import 'dart:io';
+
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import 'models/Fish.dart';
 import 'views/diary/fishChooser.dart';
+import 'package:image_picker/image_picker.dart';
+
+import 'views/takePicturePage.dart';
 
 class NewEntryScreen extends StatefulWidget {
   @override
@@ -14,9 +20,57 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
   String description = "";
   String dateStart = "";
   List<String> fishes = [];
+  String _path;
 
   @override
   Widget build(BuildContext context) {
+    void _showPhotoLibrary() async {
+      final file = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+      setState(() {
+        _path = file.path;
+      });
+    }
+
+    void _showCamera() async {
+      final cameras = await availableCameras();
+      final camera = cameras.first;
+
+      String result = await Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => TakePicturePage(camera: camera)));
+
+      setState(() {
+        _path = result;
+      });
+    }
+
+    void _showOptions(BuildContext context) async {
+      showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Container(
+                height: 150,
+                child: Column(children: <Widget>[
+                  ListTile(
+                      onTap: () {
+                        Navigator.pop(context);
+                        _showCamera();
+                      },
+                      leading: Icon(Icons.photo_camera),
+                      title: Text("Take a picture from camera")),
+                  ListTile(
+                      onTap: () {
+                        Navigator.pop(context);
+                        _showPhotoLibrary();
+                      },
+                      leading: Icon(Icons.photo_library),
+                      title: Text("Choose from photo library"))
+                ]));
+          });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Dodaj wyprawe"),
@@ -71,6 +125,15 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                         }).toList(),
                       )
                     : SizedBox(),
+                FlatButton(
+                  child: Text("Take Picture",
+                      style: TextStyle(color: Colors.white)),
+                  color: Colors.green,
+                  onPressed: () {
+                    _showOptions(context);
+                  },
+                ),
+                _path == null ? SizedBox() : Image.file(File(_path)),
               ],
             ),
           ),
