@@ -20,9 +20,96 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
   String waterName = "";
   String description = "";
   String dateStart = "";
+  String length = "";
+  String hook = "";
+  String line = "";
   List<String> fishes = [];
   List<String> methods = [];
+  List<String> additionals = [];
   String _path;
+  TextEditingController _lineController = TextEditingController();
+  TextEditingController _hookController = TextEditingController();
+  TextEditingController _lengthController = TextEditingController();
+
+  _onChangedLine(String value) {
+    setState(() {
+      line = value;
+    });
+  }
+
+  _onChangedLength(String value) {
+    setState(() {
+      length = value;
+    });
+  }
+
+  _onChangedHook(String value) {
+    setState(() {
+      hook = value;
+    });
+  }
+
+  Future<void> _askedToLead() async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: const Text('Uzupelnij informacje'),
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: "Zylka [mm]",
+                        ),
+                        controller: _lineController,
+                        onChanged: _onChangedLine,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: "Hak [mm]",
+                        ),
+                        controller: _hookController,
+                        onChanged: _onChangedHook,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: "Odleglosc [mm]",
+                        ),
+                        controller: _lengthController,
+                        onChanged: _onChangedLength,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          RaisedButton(
+                            color: Colors.orange[300],
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "Dodaj",
+                            ),
+                          ),
+                          RaisedButton(
+                            color: Colors.red[300],
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "Pomin",
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ))
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +216,7 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                             title: Text(data),
                             trailing: IconButton(
                               icon: Icon(Icons.remove),
+                              color: Colors.red,
                               onPressed: () {
                                 setState(() {
                                   methods.remove(data);
@@ -161,9 +249,44 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                             title: Text(data),
                             trailing: IconButton(
                               icon: Icon(Icons.remove),
+                              color: Colors.red,
                               onPressed: () {
                                 setState(() {
                                   fishes.remove(data);
+                                });
+                              },
+                            ),
+                          );
+                        }).toList(),
+                      )
+                    : SizedBox(),
+                RaisedButton(
+                  shape: StadiumBorder(),
+                  color: Colors.orange[300],
+                  onPressed: () async {
+                    await _askedToLead();
+                    setState(() {
+                      additionals.add("Zylka:" +
+                          line +
+                          "\nHak:" +
+                          hook +
+                          "\nOdleglosc:" +
+                          length);
+                    });
+                  },
+                  child: Text("Dodaj szczegol"),
+                ),
+                additionals != null && additionals.length != 0
+                    ? Column(
+                        children: additionals.map((data) {
+                          return ListTile(
+                            title: Text(data),
+                            trailing: IconButton(
+                              icon: Icon(Icons.remove),
+                              color: Colors.red,
+                              onPressed: () {
+                                setState(() {
+                                  additionals.remove(data);
                                 });
                               },
                             ),
@@ -190,6 +313,7 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                               Image.file(File(_path)),
                               IconButton(
                                 icon: Icon(Icons.remove),
+                                color: Colors.red,
                                 onPressed: () {
                                   setState(() {
                                     _path = null;
