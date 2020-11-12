@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "name": "Wedkarstwo podlodowe"
+    },
+    {
+        "id": 2,
+        "name": "Wedkarstwo spinningowe"
+    },
+    {
+        "id": 3,
+        "name": "Wedkarstwo muchowe"
+    },
+    {
+        "id": 4,
+        "name": "Wedkarstwo splawikowe"
+    },
+    {
+        "id": 5,
+        "name": "Wedkarstwo gruntowe"
+    },
+    {
+        "id": 6,
+        "name": "Wedkarstwo morskie"
+    },
+    {
+        "id": 7,
+        "name": "Wedkarstwo karpiowe"
+    },
+    {
+        "id": 8,
+        "name": "Wedkarstwo sumowe"
+    }
+]

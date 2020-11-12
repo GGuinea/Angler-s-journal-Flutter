@@ -4,9 +4,11 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import 'models/Fish.dart';
+import 'models/FishingMethod.dart';
 import 'views/diary/fishChooser.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'views/diary/methodChooser.dart';
 import 'views/takePicturePage.dart';
 
 class NewEntryScreen extends StatefulWidget {
@@ -20,6 +22,7 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
   String description = "";
   String dateStart = "";
   List<String> fishes = [];
+  List<String> methods = [];
   String _path;
 
   @override
@@ -60,14 +63,14 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                         _showCamera();
                       },
                       leading: Icon(Icons.photo_camera),
-                      title: Text("Take a picture from camera")),
+                      title: Text("Zrob nowe zdjecie")),
                   ListTile(
                       onTap: () {
                         Navigator.pop(context);
                         _showPhotoLibrary();
                       },
                       leading: Icon(Icons.photo_library),
-                      title: Text("Choose from photo library"))
+                      title: Text("Wybierz zdjecie z galerii"))
                 ]));
           });
     }
@@ -104,6 +107,32 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                       waterName = val;
                     }),
                 RaisedButton(
+                  shape: StadiumBorder(),
+                  color: Colors.orange[300],
+                  onPressed: () async {
+                    final result =
+                        Navigator.of(context).push(MaterialPageRoute<String>(
+                      builder: (context) => MethodChooser(),
+                    ));
+                    String output = await result;
+                    setState(() {
+                      if (output != null) methods.add(output);
+                    });
+                  },
+                  child: Text("Wybierz metode polowu"),
+                ),
+                methods != null && methods.length != 0
+                    ? Column(
+                        children: methods.map((data) {
+                          return ListTile(
+                            title: Text(data),
+                          );
+                        }).toList(),
+                      )
+                    : SizedBox(),
+                RaisedButton(
+                  shape: StadiumBorder(),
+                  color: Colors.orange[300],
                   onPressed: () async {
                     final result =
                         Navigator.of(context).push(MaterialPageRoute<Fish>(
@@ -126,10 +155,10 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                         }).toList(),
                       )
                     : SizedBox(),
-                FlatButton(
-                  child: Text("Take Picture",
-                      style: TextStyle(color: Colors.white)),
-                  color: Colors.green,
+                RaisedButton(
+                  shape: StadiumBorder(),
+                  child: Text("Dodaj zdjecie"),
+                  color: Colors.orange[300],
                   onPressed: () {
                     _showOptions(context);
                   },
