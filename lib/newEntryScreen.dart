@@ -4,7 +4,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import 'models/Fish.dart';
-import 'models/FishingMethod.dart';
 import 'views/diary/fishChooser.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -28,7 +27,7 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
   @override
   Widget build(BuildContext context) {
     void _showPhotoLibrary() async {
-      ImagePicker imagePicker;
+      ImagePicker imagePicker = new ImagePicker();
       final file = await imagePicker.getImage(source: ImageSource.gallery);
 
       setState(() {
@@ -80,6 +79,7 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
         title: Text("Dodaj wyprawe"),
       ),
       body: Container(
+        height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -106,6 +106,7 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                     onChanged: (val) {
                       waterName = val;
                     }),
+                SizedBox(height: 20),
                 RaisedButton(
                   shape: StadiumBorder(),
                   color: Colors.orange[300],
@@ -126,6 +127,14 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                         children: methods.map((data) {
                           return ListTile(
                             title: Text(data),
+                            trailing: IconButton(
+                              icon: Icon(Icons.remove),
+                              onPressed: () {
+                                setState(() {
+                                  methods.remove(data);
+                                });
+                              },
+                            ),
                           );
                         }).toList(),
                       )
@@ -145,12 +154,19 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                   },
                   child: Text("Dodaj zlowiona rybe"),
                 ),
-                SizedBox(height: 20),
                 fishes != null && fishes.length != 0
                     ? Column(
                         children: fishes.map((data) {
                           return ListTile(
                             title: Text(data),
+                            trailing: IconButton(
+                              icon: Icon(Icons.remove),
+                              onPressed: () {
+                                setState(() {
+                                  fishes.remove(data);
+                                });
+                              },
+                            ),
                           );
                         }).toList(),
                       )
@@ -163,7 +179,25 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                     _showOptions(context);
                   },
                 ),
-                _path == null ? SizedBox() : Image.file(File(_path)),
+                _path == null
+                    ? SizedBox()
+                    : Container(
+                        height: 300,
+                        width: 400,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Image.file(File(_path)),
+                              IconButton(
+                                icon: Icon(Icons.remove),
+                                onPressed: () {
+                                  setState(() {
+                                    _path = null;
+                                  });
+                                },
+                              )
+                            ]),
+                      ),
               ],
             ),
           ),

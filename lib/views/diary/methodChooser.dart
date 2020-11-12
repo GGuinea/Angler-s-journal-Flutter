@@ -25,12 +25,68 @@ class _MethodChooserState extends State<MethodChooser> {
   }
 
   List<String> _staticData = [];
+  TextEditingController _descriptionController = TextEditingController();
+  String description = "";
 
   void getNames() async {
     var _staticDataTmp = await fetchJSONData();
     setState(() {
       _staticData = _staticDataTmp;
     });
+  }
+
+  _onChangedDesc(String value) {
+    setState(() {
+      description = value;
+    });
+  }
+
+  Future<void> _askedToLead() async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: const Text('Uzupelnij informacje'),
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: "Dodatkowy opis",
+                        ),
+                        controller: _descriptionController,
+                        onChanged: _onChangedDesc,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          RaisedButton(
+                            color: Colors.orange[300],
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "Dodaj",
+                            ),
+                          ),
+                          RaisedButton(
+                            color: Colors.red[300],
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "Pomin",
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ))
+            ],
+          );
+        });
   }
 
   @override
@@ -58,7 +114,8 @@ class _MethodChooserState extends State<MethodChooser> {
                   children: _staticData.map((data) {
                     return ListTile(
                       onTap: () async {
-                        Navigator.of(context).pop(data);
+                        await _askedToLead();
+                        Navigator.of(context).pop(data + "\n" + description);
                       },
                       title: Text(data),
                     );
