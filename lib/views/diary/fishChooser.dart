@@ -139,6 +139,13 @@ class _FishChooserState extends State<FishChooser> {
                 controller: _textController,
                 decoration: InputDecoration(
                   hintText: "Wyszukaj",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  hintStyle: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 onChanged: _onChanged,
               ),
