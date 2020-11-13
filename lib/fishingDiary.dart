@@ -39,7 +39,7 @@ class _DiaryState extends State<Diary> {
     entries = new List.from(futureEntries.reversed);
   }
 
-  Future<bool> fetchData() => Future.delayed(Duration(seconds: 1), () {
+  Future<bool> fetchData() => Future.delayed(Duration(seconds: 3), () {
         initState();
         return true;
       });
