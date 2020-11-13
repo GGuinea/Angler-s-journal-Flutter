@@ -1,9 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import 'models/Fish.dart';
+import 'models/FishingEntry.dart';
+import 'models/User.dart';
+import 'services/api_service.dart';
 import 'views/diary/fishChooser.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -11,11 +15,15 @@ import 'views/diary/methodChooser.dart';
 import 'views/takePicturePage.dart';
 
 class NewEntryScreen extends StatefulWidget {
+  final User userInfo;
+  NewEntryScreen({this.userInfo});
   @override
-  _NewEntryScreenState createState() => _NewEntryScreenState();
+  _NewEntryScreenState createState() => _NewEntryScreenState(userInfo);
 }
 
 class _NewEntryScreenState extends State<NewEntryScreen> {
+  final User userInfo;
+  _NewEntryScreenState(this.userInfo);
   String title = "";
   String waterName = "";
   String description = "";
@@ -30,6 +38,8 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
   TextEditingController _lineController = TextEditingController();
   TextEditingController _hookController = TextEditingController();
   TextEditingController _lengthController = TextEditingController();
+  final dateControllerStart = TextEditingController();
+  ApiService api = ApiService();
 
   _onChangedLine(String value) {
     setState(() {
@@ -47,6 +57,15 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
     setState(() {
       hook = value;
     });
+  }
+
+  @override
+  void dispose() {
+    _lineController.dispose();
+    _hookController.dispose();
+    _lengthController.dispose();
+    dateControllerStart.dispose();
+    super.dispose();
   }
 
   Future<void> _askedToLead() async {
@@ -164,6 +183,45 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Dodaj wyprawe"),
+        actions: [
+          RaisedButton(
+            onPressed: () async {
+              final bytes = await File(_path).readAsBytes();
+              String imgConverted = base64Encode(bytes);
+              String fishesConverted = "";
+              String methodsConverted = "";
+              String additionalsConverted = "";
+              for (String str in fishes) {
+                fishesConverted += str;
+                fishesConverted += "\n";
+              }
+              for (String str in methods) {
+                methodsConverted += str;
+                methodsConverted += "\n";
+              }
+              for (String str in additionals) {
+                additionalsConverted += str;
+                additionalsConverted += "\n";
+              }
+              FishingEntry fishingEntry = new FishingEntry(
+                  1,
+                  title,
+                  imgConverted,
+                  description,
+                  waterName,
+                  dateStart,
+                  methodsConverted,
+                  fishesConverted,
+                  additionalsConverted);
+              api.addEntry(fishingEntry, userInfo);
+              Navigator.of(context).pop();
+            },
+            color: Colors.orange[400],
+            splashColor: Colors.blue,
+            shape: StadiumBorder(),
+            child: Text("Zapisz"),
+          )
+        ],
       ),
       body: Container(
         height: double.infinity,
@@ -192,6 +250,33 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                     ),
                     onChanged: (val) {
                       waterName = val;
+                    }),
+                TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Dodatkowe informacje',
+                    ),
+                    onChanged: (val) {
+                      description = val;
+                    }),
+                TextField(
+                    onTap: () async {
+                      var date = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2100),
+                      );
+                      dateControllerStart.text =
+                          date.toString().substring(0, 10);
+                      dateStart = dateControllerStart.text;
+                    },
+                    readOnly: true,
+                    controller: dateControllerStart,
+                    decoration: InputDecoration(
+                      labelText: 'Data wyprawy',
+                    ),
+                    onChanged: (val) {
+                      dateStart = val;
                     }),
                 SizedBox(height: 20),
                 RaisedButton(
@@ -237,7 +322,11 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                     ));
                     Fish output = await result;
                     setState(() {
-                      fishes.add(output.name + output.size + output.weight);
+                      fishes.add(output.name +
+                          " " +
+                          output.size +
+                          " " +
+                          output.weight);
                     });
                   },
                   child: Text("Dodaj zlowiona rybe"),
