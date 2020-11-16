@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'diary/details.dart';
 import 'models/User.dart';
 import 'newEntryScreen.dart';
 import 'services/api_service.dart';
@@ -68,7 +69,13 @@ class _DiaryState extends State<Diary> {
                   padding: EdgeInsets.only(top: 10, left: 10, right: 10),
                   child: InkWell(
                     onTap: () {
-                      print(entries.length - index);
+                      Navigator.of(context).push(
+                        new MaterialPageRoute(
+                          builder: (context) =>
+                              Details(fishingEntry: entries[index]),
+                        ),
+                      );
+                      print(entries.length);
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(
