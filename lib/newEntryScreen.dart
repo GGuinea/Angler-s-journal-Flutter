@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
+import 'common/design.dart';
 import 'models/Fish.dart';
 import 'models/FishingEntry.dart';
 import 'models/User.dart';
@@ -229,7 +230,7 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.blue, Colors.white],
+            colors: gradiendColors,
           ),
         ),
         child: Padding(
