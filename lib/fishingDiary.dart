@@ -125,7 +125,7 @@ class _DiaryState extends State<Diary> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(new MaterialPageRoute(
-            builder: (context) => NewEntryScreen(),
+            builder: (context) => NewEntryScreen(userInfo: userInfo),
           ));
         },
         backgroundColor: Colors.orange[500],
