@@ -19,35 +19,36 @@ class _CardDescriptionState extends State<CardDescription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("$name"),
-        ),
-        body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          color: Colors.grey,
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(height: 30),
-                    Image.asset('assets/' + img),
-                    Padding(
-                      padding: EdgeInsets.only(top: 50, left: 20),
-                      child: Text(
-                        '$desc',
-                        style: TextStyle(
-                          fontSize: 24,
-                        ),
+      appBar: AppBar(
+        title: Text("$name"),
+      ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        color: Colors.grey,
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(height: 30),
+                  Image.asset('assets/' + img),
+                  Padding(
+                    padding: EdgeInsets.only(top: 50, left: 20),
+                    child: Text(
+                      '$desc',
+                      style: TextStyle(
+                        fontSize: 24,
                       ),
-                    )
-                  ],
-                )),
-          ),
-        ));
+                    ),
+                  )
+                ],
+              )),
+        ),
+      ),
+    );
   }
 }

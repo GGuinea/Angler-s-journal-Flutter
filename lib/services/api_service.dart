@@ -83,8 +83,11 @@ class ApiService {
       'title': entry.name,
       'date': entry.dateTime,
       'place': entry.nameOfThePlace,
-      'desc': entry.description,
+      'description': entry.description,
       'file': entry.img,
+      'methods': entry.methods,
+      'fishes': entry.fishes,
+      'details': entry.details,
     };
     Response response = await post(
       '$apiUrl/data/addEntry',
