@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:vector_math/vector_math_64.dart' as vector;
 
 import 'package:NotatnikWedkarza/common/design.dart';
 import 'package:NotatnikWedkarza/models/FishingEntry.dart';
@@ -20,24 +19,13 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     setState(() {
-      //image = Io.File('imageFromDiary.jpg');
       bytes = base64Decode(fishingEntry.img);
       print(fishingEntry.img);
-      _animationController = new AnimationController(
-          vsync: this, duration: Duration(milliseconds: 500));
-      _animation = Tween(begin: 1.0, end: 3.0).animate(CurvedAnimation(
-          parent: _animationController, curve: Curves.easeInOutCubic))
-        ..addListener(() {
-          setState(() {});
-        });
-      //image.writeAsBytesSync(bytes);
     });
 
     super.initState();
   }
 
-  Animation _animation;
-  AnimationController _animationController;
   final double mainFontSize = 20.0;
   final double minorFontSize = 18.0;
 
@@ -157,30 +145,14 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                     children: [
                       SizedBox(width: 20),
                       getTextWidget("Zdjecia: ", getBoldStyle(mainFontSize)),
-                      getTextWidget("(Kilknij 2x by powiekszyc)",
-                          getSimplyTextStyle(12.0)),
                     ],
                   ),
-                  GestureDetector(
-                    onDoubleTap: () {
-                      if (_animationController.isCompleted) {
-                        _animationController.reverse();
-                      } else {
-                        _animationController.forward();
-                      }
-                    },
-                    child: Transform(
-                      alignment: FractionalOffset.topCenter,
-                      transform: vector.Matrix4.diagonal3(
-                        vector.Vector3(_animation.value / 2,
-                            _animation.value / 2, _animation.value / 2),
-                      ),
-                      child: Image.memory(bytes),
-                    ),
+                  InteractiveViewer(
+                    minScale: 1,
+                    maxScale: 2,
+                    child: Image.memory(bytes, height: 300, width: 300),
                   ),
-                  SizedBox(
-                    height: 165,
-                  ),
+                  SizedBox(height: 100),
                 ],
               ),
             ),
