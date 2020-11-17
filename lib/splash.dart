@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'placeholder_widget.dart';
 import 'signup.dart';
 import 'dashboard.dart';
 import 'package:http/http.dart';
@@ -19,6 +21,11 @@ class _SplashScreenState extends State<SplashScreen> {
   final _usernameCotroller = TextEditingController();
   final _passwordController = TextEditingController();
   User user = new User();
+  GoogleSignIn googleSignIn = GoogleSignIn(
+      clientId:
+          "434767421435-v7880rd311cfjdi1l11phcvrsesmeeca.apps.googleusercontent.com");
+  GoogleSignInAccount googleAccout;
+  GoogleSignInAuthentication auth;
 
   @override
   Widget build(BuildContext context) {
@@ -110,17 +117,20 @@ class _SplashScreenState extends State<SplashScreen> {
                         child: MaterialButton(
                           onPressed: () async {
                             if (isValid(formKey)) {
-                              var restult = api.loginUser(_usernameCotroller.text,
+                              var restult = api.loginUser(
+                                  _usernameCotroller.text,
                                   _passwordController.text);
                               Response serverResponse = await restult;
                               if (serverResponse.statusCode == 200) {
-                                final jsonDecoded = json.decode(serverResponse.body);
+                                final jsonDecoded =
+                                    json.decode(serverResponse.body);
                                 User user = User.fromJson(jsonDecoded);
                                 user.userName = _usernameCotroller.text;
                                 print(user.token);
                                 Navigator.of(context)
                                     .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => Dashboard(userInfo: user),
+                                  builder: (context) =>
+                                      Dashboard(userInfo: user),
                                 ));
                               } else {
                                 printOutput(serverResponse.body, context);
@@ -148,7 +158,13 @@ class _SplashScreenState extends State<SplashScreen> {
                       padding: EdgeInsets.only(top: 440, left: 20, right: 20),
                       child: Center(
                         child: MaterialButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await startSignIn();
+                              Navigator.of(context).push(new MaterialPageRoute(
+                                builder: (context) => PlaceholderWidget(
+                                    Colors.red, googleAccout.displayName),
+                              ));
+                            },
                             splashColor: Colors.blue,
                             minWidth: double.infinity,
                             shape: RoundedRectangleBorder(
@@ -241,5 +257,20 @@ class _SplashScreenState extends State<SplashScreen> {
       print("Dziala");
       return Future.value(null);
     }
+  }
+
+  Future<void> startSignIn() async {
+    GoogleSignInAccount user = await googleSignIn.signIn();
+    if (user == null) {
+      print("Failed");
+    } else {
+      print("Working");
+      getProfile();
+    }
+  }
+
+  void getProfile() async {
+    googleAccout = googleSignIn.currentUser;
+    auth = await googleAccout.authentication;
   }
 }
