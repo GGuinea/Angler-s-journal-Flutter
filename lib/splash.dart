@@ -20,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final _usernameCotroller = TextEditingController();
   final _passwordController = TextEditingController();
+  final String passwordForGoogleAccounts = "qwer#@22#(9FFs)";
   User user = new User();
   GoogleSignIn googleSignIn = GoogleSignIn(
       clientId:
@@ -159,11 +160,13 @@ class _SplashScreenState extends State<SplashScreen> {
                       child: Center(
                         child: MaterialButton(
                             onPressed: () async {
+                              showDialog(
+                                context: context,
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
                               await startSignIn();
-                              Navigator.of(context).push(new MaterialPageRoute(
-                                builder: (context) => PlaceholderWidget(
-                                    Colors.red, googleAccout.displayName),
-                              ));
                             },
                             splashColor: Colors.blue,
                             minWidth: double.infinity,
@@ -267,10 +270,34 @@ class _SplashScreenState extends State<SplashScreen> {
       print("Working");
       getProfile();
     }
+    createAccount();
   }
 
   void getProfile() async {
     googleAccout = googleSignIn.currentUser;
     auth = await googleAccout.authentication;
+  }
+
+  void createAccount() async {
+    await api.createUser(
+      googleAccout.displayName,
+      googleAccout.email,
+      passwordForGoogleAccounts,
+    );
+    var result = api.loginUser(
+      googleAccout.displayName,
+      passwordForGoogleAccounts,
+    );
+    Response serverResponse = await result;
+    if (serverResponse.statusCode == 200) {
+      final jsonDecoded = json.decode(serverResponse.body);
+      User user = User.fromJson(jsonDecoded);
+      user.userName = googleAccout.displayName;
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => Dashboard(userInfo: user),
+      ));
+    } else {
+      printOutput(serverResponse.body, context);
+    }
   }
 }
