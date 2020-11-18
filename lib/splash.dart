@@ -74,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen> {
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
                           ),
-                          labelText: "USERNAME",
+                          labelText: "Nazwa uzytkownika",
                         ),
                         validator: MultiValidator([
                           RequiredValidator(errorText: "Wymagane"),
