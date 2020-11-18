@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'placeholder_widget.dart';
 import 'remind_password.dart';
 import 'signup.dart';
 import 'dashboard.dart';
