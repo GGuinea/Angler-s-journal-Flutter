@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:NotatnikWedkarza/models/FishingEntry.dart';
 import 'package:NotatnikWedkarza/models/User.dart';
+import 'package:NotatnikWedkarza/models/district_entry.dart';
 import 'package:http/http.dart';
-import 'dart:convert';
 
 class ApiService {
   final String apiUrl = "https://fishing-diary-backend.herokuapp.com/api";
@@ -101,5 +103,24 @@ class ApiService {
     print(response.statusCode);
     print(response.body);
     return response;
+  }
+
+  Future<List<DistrictEntry>> getDistricts(userInfo) async {
+    Response response = await get(
+      '$apiUrl/area/getDistricts/',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+    );
+    var entries = List<DistrictEntry>();
+    if (response.statusCode == 200) {
+      print(response.body);
+      final jsonDecoded = json.decode(response.body);
+      for (var jsonObject in jsonDecoded) {
+        entries.add(DistrictEntry.fromJson(jsonObject));
+      }
+    }
+    return entries;
   }
 }

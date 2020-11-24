@@ -40,8 +40,8 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    Diary diary = Diary(userInfo: userInfo);
-    _children[1] = diary;
+    _children[0] = AtlasScreen(userInfo: userInfo);
+    _children[1] = Diary(userInfo: userInfo);
     return WillPopScope(
       onWillPop: () => popped(),
       child: Scaffold(

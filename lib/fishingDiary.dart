@@ -1,4 +1,6 @@
+import 'package:NotatnikWedkarza/common/design.dart';
 import 'package:flutter/material.dart';
+
 import 'diary/details.dart';
 import 'models/User.dart';
 import 'newEntryScreen.dart';
@@ -52,7 +54,7 @@ class _DiaryState extends State<Diary> {
           gradient: LinearGradient(
             begin: Alignment.bottomLeft,
             end: Alignment.centerRight,
-            colors: [Colors.blue, Colors.white],
+            colors: gradiendColors,
           ),
         ),
         child: FutureBuilder(

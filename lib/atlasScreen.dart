@@ -1,18 +1,24 @@
+import 'package:NotatnikWedkarza/models/User.dart';
 import 'package:NotatnikWedkarza/views/atlas/fishing_area/fishing_area_list.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'fishList.dart';
 
 class AtlasScreen extends StatefulWidget {
+  final User userInfo;
+  AtlasScreen({this.userInfo});
   @override
-  _AtlasScreenState createState() => _AtlasScreenState();
+  _AtlasScreenState createState() => _AtlasScreenState(userInfo);
 }
 
-final List<Widget> listOfElements = [FishList(), FishingAreaList()];
-
 class _AtlasScreenState extends State<AtlasScreen> {
+  final User userInfo;
+  _AtlasScreenState(this.userInfo);
+  final List<Widget> listOfElements = [FishList(), FishingAreaList()];
+
   @override
   Widget build(BuildContext context) {
+    listOfElements[1] = FishingAreaList(userInfo: userInfo);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
