@@ -1,3 +1,4 @@
+import 'package:NotatnikWedkarza/views/atlas/fishing_area/fishing_area_list.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'fishList.dart';
@@ -7,7 +8,7 @@ class AtlasScreen extends StatefulWidget {
   _AtlasScreenState createState() => _AtlasScreenState();
 }
 
-final List<Widget> listOfElements = [FishList()];
+final List<Widget> listOfElements = [FishList(), FishingAreaList()];
 
 class _AtlasScreenState extends State<AtlasScreen> {
   @override
@@ -32,9 +33,11 @@ class _AtlasScreenState extends State<AtlasScreen> {
                       padding: EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  listOfElements[newData[index]['index'] - 1]));
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => listOfElements[
+                                    newData[index]['index'] - 1]),
+                          );
                         },
                         child: Card(
                           shape: RoundedRectangleBorder(
