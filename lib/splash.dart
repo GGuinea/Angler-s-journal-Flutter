@@ -73,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
                           ),
-                          labelText: "Nazwa uzytkownika",
+                          labelText: "NAZWA UZYTKOWNIKA",
                         ),
                         validator: MultiValidator([
                           RequiredValidator(errorText: "Wymagane"),
@@ -149,7 +149,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20)),
                           child: Text(
-                            "Login",
+                            "Zaloguj",
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.bold,
@@ -187,7 +187,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                 ),
                                 Center(
                                   child: Text(
-                                    "Login with Google",
+                                    "Zaloguj przez Google",
                                     style: TextStyle(
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.bold,

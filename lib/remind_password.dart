@@ -24,12 +24,9 @@ class PasswordReminderView extends StatelessWidget {
             child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.only(top: 80, left: 20, right: 20),
               child: Column(
                 children: [
-                  Text(
-                      "*Podaj nam swoja nazwe uzytkownika, a my wyslemy na Twoj email haslo tymczasowe"),
-                  SizedBox(height: 20),
                   TextFormField(
                     controller: _usernameController,
                     decoration: InputDecoration(
@@ -37,7 +34,14 @@ class PasswordReminderView extends StatelessWidget {
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
                       ),
-                      labelText: "Nazwa uzytkownika",
+                      labelText: "NAZWA UZYTKOWNIKA",
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    "*Podaj nam swoja nazwe uzytkownika, a my wyslemy na Twoj email haslo tymczasowe",
+                    style: TextStyle(
+                      fontSize: 15,
                     ),
                   ),
                 ],
