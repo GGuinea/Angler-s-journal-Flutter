@@ -166,7 +166,7 @@ class _SplashScreenState extends State<SplashScreen> {
                             onPressed: () async {
                               showDialog(
                                 context: context,
-                                child: Center(
+                                builder: (_) => new Center(
                                   child: CircularProgressIndicator(),
                                 ),
                               );
