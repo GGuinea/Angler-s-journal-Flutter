@@ -76,32 +76,27 @@ class _FishingAreaListState extends State<FishingAreaList> {
                         padding: EdgeInsets.only(
                             top: 22, bottom: 22, left: 16, right: 16),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 InkWell(
                                   child: Column(
                                     children: [
-                                      Row(
+                                      Column(
                                         children: [
                                           Text(
                                             entries[index].district,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 20),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
+                                                fontSize: 25),
                                           ),
                                           Text(
-                                            entries[index]
-                                                .areaCounter
-                                                .toString(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20),
+                                            "Liczba lowisk: " +
+                                                entries[index]
+                                                    .areaCounter
+                                                    .toString(),
+                                            style: TextStyle(fontSize: 15),
                                           ),
                                         ],
                                       ),
