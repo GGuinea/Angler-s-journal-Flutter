@@ -1,6 +1,7 @@
 import 'package:NotatnikWedkarza/common/design.dart';
 import 'package:NotatnikWedkarza/models/User.dart';
 import 'package:NotatnikWedkarza/services/api_service.dart';
+import 'package:NotatnikWedkarza/views/atlas/fishing_area/fishing_area_details.dart';
 import 'package:flutter/material.dart';
 
 class District extends StatefulWidget {
@@ -19,8 +20,8 @@ class _DistrictState extends State<District> {
   var entries = [];
 
   void getEntriesFromDistricts() async {
-    var futureEntries = await api.getAreasFromDistict(userInfo, district);
-    entries = new List.from(futureEntries);
+    entries = await api.getAreasFromDistict(userInfo, district);
+    //entries = new List.from(futureEntries);
   }
 
   Future<bool> fetchData() => Future.delayed(Duration(seconds: 1), () {
@@ -69,7 +70,16 @@ class _DistrictState extends State<District> {
                 return Padding(
                   padding: EdgeInsets.only(top: 10, left: 10, right: 10),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => FishingAreaDetails(
+                            userInfo: userInfo,
+                            fishingArea: entries[index],
+                          ),
+                        ),
+                      );
+                    },
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),

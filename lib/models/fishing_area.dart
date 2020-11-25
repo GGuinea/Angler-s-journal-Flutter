@@ -15,7 +15,11 @@ class FishingArea {
     name = jsonObject['name'];
     district = jsonObject['district'];
     description = jsonObject['description'];
-    var list = jsonObject['comments'];
-    comments = list.cast<Comment>();
+    var tmp = jsonObject['comments'];
+    print(tmp);
+    comments = [];
+    for (var model in tmp) {
+      comments.add((Comment.fromJson(model)));
+    }
   }
 }
