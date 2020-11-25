@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:NotatnikWedkarza/models/FishingEntry.dart';
 import 'package:NotatnikWedkarza/models/User.dart';
 import 'package:NotatnikWedkarza/models/district_entry.dart';
+import 'package:NotatnikWedkarza/models/fishing_area.dart';
 import 'package:http/http.dart';
 
 class ApiService {
@@ -120,6 +121,27 @@ class ApiService {
       for (var jsonObject in jsonDecoded) {
         entries.add(DistrictEntry.fromJson(jsonObject));
       }
+    }
+    return entries;
+  }
+
+  Future<List<FishingArea>> getAreasFromDistict(userInfo, district) async {
+    Response response = await get(
+      '$apiUrl/area/getEntries/' + district,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+    );
+    var entries = List<FishingArea>();
+    if (response.statusCode == 200) {
+      print(response.body);
+      final jsonDecoded = json.decode(response.body);
+      for (var jsonObject in jsonDecoded) {
+        entries.add(FishingArea.fromJson(jsonObject));
+      }
+    } else {
+      print(response.statusCode);
     }
     return entries;
   }

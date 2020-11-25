@@ -1,25 +1,26 @@
 import 'package:NotatnikWedkarza/common/design.dart';
 import 'package:NotatnikWedkarza/models/User.dart';
 import 'package:NotatnikWedkarza/services/api_service.dart';
-import 'package:NotatnikWedkarza/views/atlas/fishing_area/district.dart';
 import 'package:flutter/material.dart';
 
-class FishingAreaList extends StatefulWidget {
+class District extends StatefulWidget {
   final User userInfo;
-  FishingAreaList({this.userInfo});
+  final String district;
+  District({this.userInfo, this.district});
   @override
-  _FishingAreaListState createState() => _FishingAreaListState(userInfo);
+  _DistrictState createState() => _DistrictState(userInfo, district);
 }
 
-class _FishingAreaListState extends State<FishingAreaList> {
+class _DistrictState extends State<District> {
   final User userInfo;
-  _FishingAreaListState(this.userInfo);
+  final String district;
+  _DistrictState(this.userInfo, this.district);
   final ApiService api = ApiService();
   var entries = [];
 
-  void getAllDistricts() async {
-    var futureEntries = await api.getDistricts(userInfo);
-    entries = new List.from(futureEntries.reversed);
+  void getEntriesFromDistricts() async {
+    var futureEntries = await api.getAreasFromDistict(userInfo, district);
+    entries = new List.from(futureEntries);
   }
 
   Future<bool> fetchData() => Future.delayed(Duration(seconds: 1), () {
@@ -29,7 +30,7 @@ class _FishingAreaListState extends State<FishingAreaList> {
 
   @override
   void initState() {
-    getAllDistricts();
+    getEntriesFromDistricts();
     super.initState();
   }
 
@@ -37,7 +38,9 @@ class _FishingAreaListState extends State<FishingAreaList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Lista lowisk"),
+        title: Text(
+          district,
+        ),
         actions: [
           IconButton(
             onPressed: () {},
@@ -66,16 +69,7 @@ class _FishingAreaListState extends State<FishingAreaList> {
                 return Padding(
                   padding: EdgeInsets.only(top: 10, left: 10, right: 10),
                   child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        new MaterialPageRoute(
-                          builder: (context) => District(
-                            userInfo: userInfo,
-                            district: entries[index].district,
-                          ),
-                        ),
-                      );
-                    },
+                    onTap: () {},
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -94,17 +88,10 @@ class _FishingAreaListState extends State<FishingAreaList> {
                                       Column(
                                         children: [
                                           Text(
-                                            entries[index].district,
+                                            entries[index].name,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 25),
-                                          ),
-                                          Text(
-                                            "Liczba lowisk: " +
-                                                entries[index]
-                                                    .areaCounter
-                                                    .toString(),
-                                            style: TextStyle(fontSize: 15),
                                           ),
                                         ],
                                       ),
