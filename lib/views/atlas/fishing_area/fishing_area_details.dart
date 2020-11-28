@@ -193,6 +193,17 @@ class _FishingAreaDetailsState extends State<FishingAreaDetails> {
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(5),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.orange,
+                                  blurRadius: 240,
+                                  spreadRadius: 5,
+                                  offset: Offset(
+                                    155,
+                                    55,
+                                  ),
+                                ),
+                              ],
                               gradient: LinearGradient(
                                 begin: Alignment.centerRight,
                                 end: Alignment.bottomLeft,
