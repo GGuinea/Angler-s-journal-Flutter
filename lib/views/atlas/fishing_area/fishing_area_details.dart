@@ -1,6 +1,8 @@
 import 'package:NotatnikWedkarza/common/design.dart';
 import 'package:NotatnikWedkarza/models/User.dart';
+import 'package:NotatnikWedkarza/models/comment.dart';
 import 'package:NotatnikWedkarza/models/fishing_area.dart';
+import 'package:NotatnikWedkarza/services/api_service.dart';
 import 'package:flutter/material.dart';
 
 class FishingAreaDetails extends StatefulWidget {
@@ -15,9 +17,87 @@ class FishingAreaDetails extends StatefulWidget {
 class _FishingAreaDetailsState extends State<FishingAreaDetails> {
   final User userInfo;
   FishingArea fishingArea;
+  bool firstTime = true;
+  final ApiService api = ApiService();
+
   _FishingAreaDetailsState(this.userInfo, this.fishingArea);
+  TextEditingController _commentController = TextEditingController();
+  String comment;
+  _onChangedComment(String value) {
+    setState(() {
+      comment = value;
+    });
+  }
+
+  @override
+  void dispose() {
+    _commentController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _askForComment() async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: const Text('Nowy komentarz'),
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.all(2),
+                  child: Column(
+                    children: [
+                      Text(
+                        "*Dbaj o jakosc swojej wypowiedzi!",
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.only(left: 8, right: 8),
+                        padding: EdgeInsets.only(bottom: 4),
+                        child: TextField(
+                          maxLines: 6,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                          ),
+                          controller: _commentController,
+                          onChanged: _onChangedComment,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          RaisedButton(
+                            color: Colors.orange[300],
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "Dodaj",
+                            ),
+                          ),
+                          RaisedButton(
+                            color: Colors.red[300],
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "Pomin",
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ))
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
+    List commentsCopy = new List.from(fishingArea.comments.reversed);
     return Scaffold(
       appBar: AppBar(
         title: Text(fishingArea.name),
@@ -67,20 +147,88 @@ class _FishingAreaDetailsState extends State<FishingAreaDetails> {
                   ),
                 ),
               ),
+              MaterialButton(
+                shape: StadiumBorder(),
+                color: Colors.orange[500],
+                onPressed: () async {
+                  await _askForComment();
+                  if (comment != null && comment.length > 10) {
+                    var date = new DateTime.now().toString();
+                    var dateParse = DateTime.parse(date);
+                    var formattedDate =
+                        "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+                    Comment commentTmp = new Comment(
+                      1,
+                      comment,
+                      userInfo.userName,
+                      formattedDate,
+                    );
+                    Comment tmp = await api.addComment(
+                        commentTmp, userInfo, fishingArea.name);
+                    setState(() {
+                      fishingArea.comments.add(tmp);
+                    });
+                  }
+                },
+                child: Text(
+                  "Dodaj komentarz",
+                ),
+              ),
               Expanded(
                 child: ListView.builder(
-                    itemCount: fishingArea.comments.length,
+                    itemCount: commentsCopy.length,
                     itemBuilder: (context, index) {
                       return new Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.vertical(
                             bottom: Radius.circular(10),
-                            top: Radius.circular(2),
+                            top: Radius.circular(12),
                           ),
                         ),
-                        child: Text(
-                          fishingArea.comments[index].posterName,
-                        ),
+                        child: Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.orange[500],
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                              gradient: LinearGradient(
+                                begin: Alignment.centerRight,
+                                end: Alignment.bottomLeft,
+                                colors: gradiendColors,
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(children: [
+                                  Text("Autor: "),
+                                  Text(
+                                    commentsCopy[index].posterName,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text("Data: "),
+                                  //Text(fishingArea.comments[index].date,
+                                  //  style: TextStyle(
+                                  //    fontWeight: FontWeight.bold,
+                                  //  ),
+                                  //),
+                                ]),
+                                SizedBox(height: 2),
+                                Row(children: [
+                                  Text(
+                                    commentsCopy[index].content,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  )
+                                ]),
+                              ],
+                            )),
                       );
                     }),
               ),

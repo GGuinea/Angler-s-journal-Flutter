@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:NotatnikWedkarza/models/FishingEntry.dart';
 import 'package:NotatnikWedkarza/models/User.dart';
+import 'package:NotatnikWedkarza/models/comment.dart';
 import 'package:NotatnikWedkarza/models/district_entry.dart';
 import 'package:NotatnikWedkarza/models/fishing_area.dart';
 import 'package:http/http.dart';
@@ -144,5 +145,28 @@ class ApiService {
       print(response.statusCode);
     }
     return entries;
+  }
+
+  Future<Comment> addComment(
+      Comment comment, User userInfo, String areaName) async {
+    Map data = {
+      'content': comment.content,
+      'posterName': comment.posterName,
+      'areaName': areaName,
+      'date': comment.date,
+    };
+    Response response = await post(
+      '$apiUrl/comment/addComment',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+      body: jsonEncode(data),
+    );
+    print(response.statusCode);
+    print(response.body);
+    final jsonDecoded = await json.decode(response.body);
+    Comment newComment = Comment.fromJson(jsonDecoded);
+    return newComment;
   }
 }
