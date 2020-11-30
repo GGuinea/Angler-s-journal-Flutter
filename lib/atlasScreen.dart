@@ -1,5 +1,7 @@
 import 'package:NotatnikWedkarza/models/User.dart';
+import 'package:NotatnikWedkarza/placeholder_widget.dart';
 import 'package:NotatnikWedkarza/views/atlas/fishing_area/fishing_area_list.dart';
+import 'package:NotatnikWedkarza/views/maps/main_view.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'fishList.dart';
@@ -14,7 +16,12 @@ class AtlasScreen extends StatefulWidget {
 class _AtlasScreenState extends State<AtlasScreen> {
   final User userInfo;
   _AtlasScreenState(this.userInfo);
-  final List<Widget> listOfElements = [FishList(), FishingAreaList()];
+  final List<Widget> listOfElements = [
+    FishList(),
+    FishingAreaList(),
+    PlaceholderWidget(Colors.red, "regulaminy"),
+    FishingMap()
+  ];
 
   @override
   Widget build(BuildContext context) {
