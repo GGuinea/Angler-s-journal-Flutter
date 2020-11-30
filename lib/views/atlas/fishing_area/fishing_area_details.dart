@@ -4,6 +4,7 @@ import 'package:NotatnikWedkarza/models/comment.dart';
 import 'package:NotatnikWedkarza/models/fishing_area.dart';
 import 'package:NotatnikWedkarza/services/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FishingAreaDetails extends StatefulWidget {
   final User userInfo;
@@ -95,12 +96,34 @@ class _FishingAreaDetailsState extends State<FishingAreaDetails> {
         });
   }
 
+  _laucchURL(String district, String name) async {
+    String url = "http://www.google.com/search?q=" +
+        name +
+        "+" +
+        district +
+        "+" +
+        "lowisko";
+    await launch(url, forceWebView: true);
+  }
+
   @override
   Widget build(BuildContext context) {
     List commentsCopy = new List.from(fishingArea.comments.reversed);
     return Scaffold(
       appBar: AppBar(
         title: Text(fishingArea.name),
+        actions: [
+          RaisedButton(
+            onPressed: () async {
+              await _laucchURL(fishingArea.district, fishingArea.name);
+            },
+            shape: StadiumBorder(),
+            child: Text(
+              "Szukaj w Google",
+            ),
+            color: Colors.orange[500],
+          )
+        ],
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -200,7 +223,7 @@ class _FishingAreaDetailsState extends State<FishingAreaDetails> {
                                   spreadRadius: 5,
                                   offset: Offset(
                                     155,
-                                    55,
+                                    155,
                                   ),
                                 ),
                               ],
