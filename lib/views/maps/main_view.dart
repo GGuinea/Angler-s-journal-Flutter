@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_google_maps/flutter_google_maps.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location_permissions/location_permissions.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 class FishingMap extends StatefulWidget {
   @override
@@ -11,14 +10,21 @@ class FishingMap extends StatefulWidget {
 }
 
 class _FishingMapState extends State<FishingMap> {
-  static const LatLng _center = const LatLng(50.50, 18.18);
-
-  GoogleMapController mapController;
+  final _key = GlobalKey<GoogleMapStateBase>();
   PermissionStatus permisison;
-  final Set<Marker> _markers = {};
-  LatLng _lastMapPosition = _center;
+  Set<Marker> _markers = Set();
   Geolocator _geolocator = Geolocator();
-  Position _currentPosition;
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+  String title = "";
+  String description = "";
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -35,30 +41,129 @@ class _FishingMapState extends State<FishingMap> {
       body: Stack(
         children: [
           GoogleMap(
-            onMapCreated: _onMapCreated,
-            zoomGesturesEnabled: true,
-            myLocationEnabled: true,
-            initialCameraPosition: CameraPosition(
-              target: _center,
-              zoom: 10.0,
-            ),
-            markers: _markers,
-            onCameraMove: _onCameraMove,
+              key: _key,
+              initialPosition: GeoCoord(50.50, 18.18),
+              markers: _markers,
+              interactive: true,
+              initialZoom: 2,
+              mobilePreferences: MobileMapPreferences(
+                myLocationEnabled: true,
+                mapToolbarEnabled: true,
+              ),
+              onLongPress: (markerId) async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => SimpleDialog(
+                    title: Text(
+                        "Dodaj ciekawe miejsce, mozesz pozniej je udostepnic"),
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 20, right: 20),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: SingleChildScrollView(
+                              child: Column(
+                            children: [
+                              TextField(
+                                decoration: InputDecoration(
+                                  hintText: "Nazwa",
+                                ),
+                                controller: _titleController,
+                                onChanged: _titleChanged,
+                              ),
+                              TextField(
+                                decoration: InputDecoration(
+                                  hintText: "Opis",
+                                ),
+                                controller: _descriptionController,
+                                onChanged: _descriptionChanged,
+                              ),
+                            ],
+                          )),
+                        ),
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            FlatButton(
+                              onPressed: () {
+                                setState(() {
+                                  Marker newMarker = Marker(
+                                    markerId,
+                                    info: title,
+                                    infoSnippet: description,
+                                    onTap: _onMarkerTap,
+                                  );
+                                  _markers.add(newMarker);
+                                  GoogleMap.of(_key).addMarker(newMarker);
+                                });
+                                print(_markers.length);
+                                Navigator.of(context).pop();
+                              },
+                              child: Text("Dodaj"),
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text("Anuluj"),
+                            ),
+                          ]),
+                    ],
+                  ),
+                );
+              }),
+        ],
+      ),
+    );
+  }
+
+  _onMarkerTap(String str) async {
+    print(str);
+    var splittedString = str.substring(9, str.length - 1).split(", ");
+    GeoCoord geoCoord = GeoCoord(
+        double.parse(splittedString[0]), double.parse(splittedString[1]));
+    Marker tappedMarker =
+        _markers.firstWhere((marker) => marker.position == geoCoord);
+    await showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(tappedMarker.info),
+        children: [
+          Column(
+            children: [
+              Text(tappedMarker.infoSnippet),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FlatButton(
+                    onPressed: () {
+                      setState(() {
+                        _markers.remove(tappedMarker);
+                        GoogleMap.of(_key).removeMarker(geoCoord);
+                      });
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Usun"),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      MapsLauncher.launchCoordinates(
+                          tappedMarker.position.latitude,
+                          tappedMarker.position.longitude);
+                    },
+                    child: Text("Pokaz droge"),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Anuluj"),
+                  )
+                ],
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Column(children: [
-                FloatingActionButton(
-                  onPressed: _onAddMarkerButtonPressed,
-                  materialTapTargetSize: MaterialTapTargetSize.padded,
-                  backgroundColor: Colors.orange,
-                  child: const Icon(Icons.add_location, size: 30),
-                )
-              ]),
-            ),
-          )
         ],
       ),
     );
@@ -68,42 +173,22 @@ class _FishingMapState extends State<FishingMap> {
     await _geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
-      setState(() {
-        _currentPosition = position;
-        mapController.animateCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(
-              target: LatLng(position.latitude, position.longitude),
-              zoom: 18.0,
-            ),
-          ),
-        );
-      });
+      GoogleMap.of(_key)
+          .moveCamera(GeoCoord(position.latitude, position.longitude));
     }).catchError((e) {
       print(e);
     });
   }
 
-  void _onAddMarkerButtonPressed() {
+  void _titleChanged(String value) {
     setState(() {
-      _markers.add(Marker(
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId(_lastMapPosition.toString()),
-        position: _lastMapPosition,
-        infoWindow: InfoWindow(
-          title: 'Really cool place',
-          snippet: '5 Star Rating',
-        ),
-        icon: BitmapDescriptor.defaultMarker,
-      ));
+      title = value;
     });
   }
 
-  void _onCameraMove(CameraPosition position) {
-    _lastMapPosition = position.target;
-  }
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+  void _descriptionChanged(String value) {
+    setState(() {
+      description = value;
+    });
   }
 }
