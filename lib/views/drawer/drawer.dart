@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
-import 'settings.dart';
+import 'package:notatinik_wedkarza/views/drawer/bug_report.dart';
+import 'package:notatinik_wedkarza/views/drawer/settings.dart';
 
 class CustomDrawer extends StatefulWidget {
   final User userInfo;
@@ -19,7 +20,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
         children: <Widget>[
           UserAccountsDrawerHeader(
             accountName: Text(userInfo.userName),
-            accountEmail: Text("Undefined"),
+            accountEmail: Text(userInfo.email),
             currentAccountPicture: CircleAvatar(
               child: Text(
                 userInfo.userName[0],
@@ -52,14 +53,23 @@ class _CustomDrawerState extends State<CustomDrawer> {
             },
           ),
           Expanded(
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ListTile(
-                    leading: Icon(Icons.bug_report),
-                    title: Text(
-                      "Raport problemu",
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ListTile(
+                leading: Icon(Icons.bug_report),
+                title: Text(
+                  "Raport problemu",
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BugReport(),
                     ),
-                  )))
+                  );
+                },
+              ),
+            ),
+          )
         ],
       ),
     );

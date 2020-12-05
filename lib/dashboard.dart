@@ -3,8 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:notatinik_wedkarza/atlas_screen.dart';
 import 'package:notatinik_wedkarza/fishing_diary.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
-
-import 'drawer.dart';
+import 'package:notatinik_wedkarza/views/drawer/drawer.dart';
 
 class Dashboard extends StatefulWidget {
   final User userInfo;
@@ -61,12 +60,6 @@ class _DashboardState extends State<Dashboard> {
                 print("go to page with timer");
               },
               icon: Icon(Icons.note_outlined),
-            ),
-            IconButton(
-              onPressed: () {
-                print("go to page with timer");
-              },
-              icon: Icon(Icons.access_alarms),
             ),
             IconButton(
               onPressed: () {
