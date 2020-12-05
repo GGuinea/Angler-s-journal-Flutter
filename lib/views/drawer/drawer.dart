@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
 import 'package:notatinik_wedkarza/views/drawer/bug_report.dart';
-import 'package:notatinik_wedkarza/views/drawer/settings.dart';
+import 'package:notatinik_wedkarza/views/drawer/change_password.dart';
 
 class CustomDrawer extends StatefulWidget {
   final User userInfo;
@@ -42,12 +42,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text(
-              "Ustawienia",
+              "Zmien haslo",
             ),
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => Settings(),
+                  builder: (context) => ChangePassword(userInfo: userInfo),
                 ),
               );
             },

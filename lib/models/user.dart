@@ -3,6 +3,7 @@ class User {
   String userName;
   String email;
   String token;
+  String password;
   User({this.token, this.email});
 
   factory User.fromJson(Map<String, dynamic> preparedJson) {

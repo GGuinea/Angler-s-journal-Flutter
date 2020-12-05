@@ -254,4 +254,20 @@ class ApiService {
     print(response.statusCode);
     print(response.body);
   }
+
+  Future<void> chagnePassword(String newPassword, userInfo) async {
+    Map data = {
+      'newPassword': newPassword,
+      'username': userInfo.userName,
+    };
+    Response response = await patch(
+      '$apiUrl/settings/password',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+      body: jsonEncode(data),
+    );
+    print(response.statusCode);
+  }
 }

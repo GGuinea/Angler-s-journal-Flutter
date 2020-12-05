@@ -131,6 +131,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                     json.decode(serverResponse.body);
                                 User user = User.fromJson(jsonDecoded);
                                 user.userName = _usernameCotroller.text;
+                                user.password = _passwordController.text;
                                 print(user.token);
                                 Navigator.of(context)
                                     .pushReplacement(MaterialPageRoute(
