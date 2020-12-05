@@ -5,6 +5,8 @@ import 'package:NotatnikWedkarza/models/User.dart';
 import 'package:NotatnikWedkarza/models/comment.dart';
 import 'package:NotatnikWedkarza/models/district_entry.dart';
 import 'package:NotatnikWedkarza/models/fishing_area.dart';
+import 'package:NotatnikWedkarza/models/marker.dart';
+import 'package:flutter_google_maps/flutter_google_maps.dart';
 import 'package:http/http.dart';
 
 class ApiService {
@@ -168,5 +170,77 @@ class ApiService {
     final jsonDecoded = await json.decode(response.body);
     Comment newComment = Comment.fromJson(jsonDecoded);
     return newComment;
+  }
+
+  Future<List<MarkerData>> getMarkers(userInfo) async {
+    Response response = await get(
+      '$apiUrl/map/getMarkers/' + userInfo.userName,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+    );
+    var entries = List<MarkerData>();
+    if (response.statusCode == 200) {
+      print(response.body);
+      final jsonDecoded = json.decode(response.body);
+      for (var jsonObject in jsonDecoded) {
+        entries.add(MarkerData.fromJson(jsonObject));
+      }
+    } else {
+      print(response.statusCode);
+    }
+    return entries;
+  }
+
+  Future<bool> addMarker(Marker marker, userInfo) async {
+    Map data = {
+      'description': marker.infoSnippet,
+      'latitude': marker.position.latitude,
+      'longitude': marker.position.longitude,
+      'title': marker.info,
+      'username': userInfo.userName,
+    };
+    Response response = await post(
+      '$apiUrl/map/addMarker',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+      body: jsonEncode(data),
+    );
+    print(response.statusCode);
+    print(response.body);
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+    //final jsonDecoded = await json.decode(response.body);
+    //MarkerData newMarker = MarkerData.fromJson(jsonDecoded);
+    //return newMarker;
+  }
+
+  Future<void> removeMarker(Marker marker, userInfo) async {
+    Map data = {
+      'description': marker.infoSnippet,
+      'latitude': marker.position.latitude,
+      'longitude': marker.position.longitude,
+      'title': marker.info,
+      'username': userInfo.userName,
+    };
+    Response response = await post(
+      '$apiUrl/map/deleteMarker',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+      body: jsonEncode(data),
+    );
+    print(response.statusCode);
+    print(response.body);
+    //final jsonDecoded = await json.decode(response.body);
+    //MarkerData newMarker = MarkerData.fromJson(jsonDecoded);
+    //return newMarker;
   }
 }

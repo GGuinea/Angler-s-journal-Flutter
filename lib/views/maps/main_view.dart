@@ -1,3 +1,5 @@
+import 'package:NotatnikWedkarza/models/User.dart';
+import 'package:NotatnikWedkarza/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_maps/flutter_google_maps.dart';
 import 'package:geolocator/geolocator.dart';
@@ -5,11 +7,15 @@ import 'package:location_permissions/location_permissions.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 class FishingMap extends StatefulWidget {
+  final User userInfo;
+  FishingMap({this.userInfo});
   @override
-  _FishingMapState createState() => _FishingMapState();
+  _FishingMapState createState() => _FishingMapState(userInfo);
 }
 
 class _FishingMapState extends State<FishingMap> {
+  final User userInfo;
+  _FishingMapState(this.userInfo);
   final _key = GlobalKey<GoogleMapStateBase>();
   PermissionStatus permisison;
   Set<Marker> _markers = Set();
@@ -18,6 +24,7 @@ class _FishingMapState extends State<FishingMap> {
   TextEditingController _descriptionController = TextEditingController();
   String title = "";
   String description = "";
+  ApiService api = ApiService();
 
   @override
   void dispose() {
@@ -30,6 +37,11 @@ class _FishingMapState extends State<FishingMap> {
   void initState() {
     super.initState();
     _getCurrentLocation();
+    justForInitState();
+  }
+
+  void justForInitState() async {
+    await getMarkers();
   }
 
   @override
@@ -86,16 +98,20 @@ class _FishingMapState extends State<FishingMap> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             FlatButton(
-                              onPressed: () {
+                              onPressed: () async {
+                                Marker newMarker = Marker(
+                                  markerId,
+                                  info: title,
+                                  infoSnippet: description,
+                                  onTap: _onMarkerTap,
+                                );
+                                bool result =
+                                    await api.addMarker(newMarker, userInfo);
                                 setState(() {
-                                  Marker newMarker = Marker(
-                                    markerId,
-                                    info: title,
-                                    infoSnippet: description,
-                                    onTap: _onMarkerTap,
-                                  );
-                                  _markers.add(newMarker);
-                                  GoogleMap.of(_key).addMarker(newMarker);
+                                  if (result == true) {
+                                    _markers.add(newMarker);
+                                    GoogleMap.of(_key).addMarker(newMarker);
+                                  }
                                 });
                                 print(_markers.length);
                                 Navigator.of(context).pop();
@@ -103,7 +119,7 @@ class _FishingMapState extends State<FishingMap> {
                               child: Text("Dodaj"),
                             ),
                             FlatButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 Navigator.of(context).pop();
                               },
                               child: Text("Anuluj"),
@@ -137,8 +153,9 @@ class _FishingMapState extends State<FishingMap> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   FlatButton(
-                    onPressed: () {
+                    onPressed: () async {
                       setState(() {
+                        api.removeMarker(tappedMarker, userInfo);
                         _markers.remove(tappedMarker);
                         GoogleMap.of(_key).removeMarker(geoCoord);
                       });
@@ -190,5 +207,22 @@ class _FishingMapState extends State<FishingMap> {
     setState(() {
       description = value;
     });
+  }
+
+  Future<void> getMarkers() async {
+    var futureEntries = await api.getMarkers(userInfo);
+    for (var entry in futureEntries) {
+      GeoCoord newGeoCoord = GeoCoord(entry.latitude, entry.longitude);
+      Marker newMarker = Marker(
+        newGeoCoord,
+        info: entry.title,
+        infoSnippet: entry.description,
+        onTap: _onMarkerTap,
+      );
+      setState(() {
+        _markers.add(newMarker);
+        GoogleMap.of(_key).addMarker(newMarker);
+      });
+    }
   }
 }

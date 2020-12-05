@@ -26,6 +26,7 @@ class _AtlasScreenState extends State<AtlasScreen> {
   @override
   Widget build(BuildContext context) {
     listOfElements[1] = FishingAreaList(userInfo: userInfo);
+    listOfElements[3] = FishingMap(userInfo: userInfo);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
