@@ -238,4 +238,20 @@ class ApiService {
     print(response.statusCode);
     print(response.body);
   }
+
+  Future<void> postBugInformation(String content, userInfo) async {
+    Map data = {
+      'content': content,
+    };
+    Response response = await post(
+      '$apiUrl/bug/addBug',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+      body: jsonEncode(data),
+    );
+    print(response.statusCode);
+    print(response.body);
+  }
 }

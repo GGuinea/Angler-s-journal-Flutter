@@ -63,7 +63,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => BugReport(),
+                      builder: (context) => BugReport(userInfo: userInfo),
                     ),
                   );
                 },
