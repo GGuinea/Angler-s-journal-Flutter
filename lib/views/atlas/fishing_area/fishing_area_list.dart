@@ -1,5 +1,5 @@
 import 'package:NotatnikWedkarza/common/design.dart';
-import 'package:NotatnikWedkarza/models/User.dart';
+import 'package:NotatnikWedkarza/models/user.dart';
 import 'package:NotatnikWedkarza/services/api_service.dart';
 import 'package:NotatnikWedkarza/views/atlas/fishing_area/district.dart';
 import 'package:flutter/material.dart';

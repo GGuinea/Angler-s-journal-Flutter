@@ -1,7 +1,7 @@
+import 'package:NotatnikWedkarza/common/common_methods.dart';
 import 'package:NotatnikWedkarza/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'common/commonMethods.dart';
 import 'package:http/http.dart';
 
 import 'splash.dart';
@@ -115,12 +115,11 @@ class _SignupPageState extends State<SignupPage> {
                                   _passwordController.text);
                               Response serverResponse = await result;
                               printOutput(serverResponse.body, context);
-                              if(serverResponse.statusCode == 200) {
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => SplashScreen(),
-                                  )
-                                );
+                              if (serverResponse.statusCode == 200) {
+                                Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => SplashScreen(),
+                                ));
                               }
                             }
                           },

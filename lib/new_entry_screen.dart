@@ -1,19 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:NotatnikWedkarza/models/fish.dart';
+import 'package:NotatnikWedkarza/models/fishing_entry.dart';
+import 'package:NotatnikWedkarza/models/user.dart';
+import 'package:NotatnikWedkarza/views/diary/fish_chooser.dart';
+import 'package:NotatnikWedkarza/views/diary/method_chooser.dart';
+import 'package:NotatnikWedkarza/views/take_picture_page.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-
-import 'common/design.dart';
-import 'models/Fish.dart';
-import 'models/FishingEntry.dart';
-import 'models/User.dart';
-import 'services/api_service.dart';
-import 'views/diary/fishChooser.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'views/diary/methodChooser.dart';
-import 'views/takePicturePage.dart';
+import 'common/design.dart';
+import 'services/api_service.dart';
 
 class NewEntryScreen extends StatefulWidget {
   final User userInfo;

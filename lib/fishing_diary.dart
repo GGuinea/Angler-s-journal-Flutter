@@ -1,9 +1,9 @@
 import 'package:NotatnikWedkarza/common/design.dart';
+import 'package:NotatnikWedkarza/models/user.dart';
+import 'package:NotatnikWedkarza/new_entry_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'diary/details.dart';
-import 'models/User.dart';
-import 'newEntryScreen.dart';
 import 'services/api_service.dart';
 
 class Diary extends StatefulWidget {
@@ -15,7 +15,6 @@ class Diary extends StatefulWidget {
 
 class _DiaryState extends State<Diary> {
   final User userInfo;
-  _DiaryState(this.userInfo);
   final dateControllerStart = TextEditingController();
   String title = "";
   String waterName = "";
@@ -23,28 +22,7 @@ class _DiaryState extends State<Diary> {
   String dateStart = "";
   final ApiService api = ApiService();
   var entries = [];
-
-  @override
-  void dispose() {
-    dateControllerStart.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    getAllEntres();
-    super.initState();
-  }
-
-  void getAllEntres() async {
-    var futureEntries = await api.getEntries(userInfo);
-    entries = new List.from(futureEntries.reversed);
-  }
-
-  Future<bool> fetchData() => Future.delayed(Duration(seconds: 3), () {
-        initState();
-        return true;
-      });
+  _DiaryState(this.userInfo);
 
   @override
   Widget build(BuildContext context) {
@@ -146,5 +124,27 @@ class _DiaryState extends State<Diary> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    dateControllerStart.dispose();
+    super.dispose();
+  }
+
+  Future<bool> fetchData() => Future.delayed(Duration(seconds: 3), () {
+        initState();
+        return true;
+      });
+
+  void getAllEntres() async {
+    var futureEntries = await api.getEntries(userInfo);
+    entries = new List.from(futureEntries.reversed);
+  }
+
+  @override
+  void initState() {
+    getAllEntres();
+    super.initState();
   }
 }

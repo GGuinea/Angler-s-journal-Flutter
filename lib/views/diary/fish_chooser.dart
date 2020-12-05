@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:NotatnikWedkarza/models/Fish.dart';
-import 'package:NotatnikWedkarza/models/StaticFishAtlas.dart';
+import 'package:NotatnikWedkarza/models/fish.dart';
+import 'package:NotatnikWedkarza/models/static_fish_atlas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

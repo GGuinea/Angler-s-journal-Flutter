@@ -1,44 +1,44 @@
-import 'dart:async';
+import 'package:NotatnikWedkarza/fish_list.dart';
+import 'package:NotatnikWedkarza/models/user.dart';
+import 'package:NotatnikWedkarza/placeholder_widget.dart';
+import 'package:NotatnikWedkarza/views/atlas/fishing_area/fishing_area_list.dart';
+import 'package:NotatnikWedkarza/views/maps/main_view.dart';
 import 'package:flutter/material.dart';
-import "models/StaticFishAtlas.dart";
-import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
-import 'views/CardDescription.dart';
-
-class FishList extends StatefulWidget {
+class AtlasScreen extends StatefulWidget {
+  final User userInfo;
+  AtlasScreen({this.userInfo});
   @override
-  _FishListState createState() => _FishListState();
+  _AtlasScreenState createState() => _AtlasScreenState(userInfo);
 }
 
-class _FishListState extends State<FishList> {
-  Future<List<GetFishes>> fetchJSONData() async {
-    var json = rootBundle.loadString('assets/data.json');
-    String jsonStr = await json;
-    final jsonItems = jsonDecode(jsonStr).cast<Map<String, dynamic>>();
-    List<GetFishes> fishList = jsonItems.map<GetFishes>((jsonStr) {
-      return GetFishes.fromJson(jsonStr);
-    }).toList();
-    return fishList;
-  }
+class _AtlasScreenState extends State<AtlasScreen> {
+  final User userInfo;
+  _AtlasScreenState(this.userInfo);
+  final List<Widget> listOfElements = [
+    FishList(),
+    FishingAreaList(),
+    PlaceholderWidget(Colors.red, "regulaminy"),
+    FishingMap()
+  ];
 
   @override
   Widget build(BuildContext context) {
+    listOfElements[1] = FishingAreaList(userInfo: userInfo);
+    listOfElements[3] = FishingMap(userInfo: userInfo);
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Atlas ryb"),
-      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.bottomCenter,
+            begin: Alignment.centerRight,
+            end: Alignment.bottomLeft,
             colors: [Colors.blue, Colors.white],
           ),
         ),
         child: FutureBuilder(
             future:
-                DefaultAssetBundle.of(context).loadString('assets/data.json'),
+                DefaultAssetBundle.of(context).loadString('assets/atlas.json'),
             builder: (context, snapshot) {
               var newData = jsonDecode(snapshot.data.toString());
               return ListView.builder(
@@ -47,12 +47,11 @@ class _FishListState extends State<FishList> {
                       padding: EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => CardDescription(
-                                name: newData[index]['name'],
-                                desc: newData[index]['desc'],
-                                img: newData[index]['img']),
-                          ));
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => listOfElements[
+                                    newData[index]['index'] - 1]),
+                          );
                         },
                         child: Card(
                           shape: RoundedRectangleBorder(
@@ -60,7 +59,7 @@ class _FishListState extends State<FishList> {
                           ),
                           child: Padding(
                             padding: EdgeInsets.only(
-                                top: 22, bottom: 22, left: 16, right: 16),
+                                top: 32, bottom: 32, left: 16, right: 16),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -77,11 +76,6 @@ class _FishListState extends State<FishList> {
                                     )
                                   ],
                                 ),
-                                Container(
-                                    height: 150,
-                                    width: 150,
-                                    child: Image.asset(
-                                        'assets/' + newData[index]['img']))
                               ],
                             ),
                           ),

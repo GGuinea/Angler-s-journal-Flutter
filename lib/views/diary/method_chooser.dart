@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:NotatnikWedkarza/models/FishingMethod.dart';
+import 'package:NotatnikWedkarza/models/fishing_method.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

@@ -1,4 +1,4 @@
-import 'package:NotatnikWedkarza/models/User.dart';
+import 'package:NotatnikWedkarza/models/user.dart';
 import 'package:NotatnikWedkarza/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_maps/flutter_google_maps.dart';

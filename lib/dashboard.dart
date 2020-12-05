@@ -1,9 +1,10 @@
-import 'package:NotatnikWedkarza/atlasScreen.dart';
+import 'package:NotatnikWedkarza/atlas_screen.dart';
+import 'package:NotatnikWedkarza/fishing_diary.dart';
+import 'package:NotatnikWedkarza/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import 'drawer.dart';
-import 'fishingDiary.dart';
-import 'models/User.dart';
 
 class Dashboard extends StatefulWidget {
   final User userInfo;

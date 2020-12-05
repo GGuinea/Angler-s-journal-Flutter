@@ -1,7 +1,7 @@
 import 'package:NotatnikWedkarza/common/design.dart';
-import 'package:NotatnikWedkarza/models/User.dart';
 import 'package:NotatnikWedkarza/models/comment.dart';
 import 'package:NotatnikWedkarza/models/fishing_area.dart';
+import 'package:NotatnikWedkarza/models/user.dart';
 import 'package:NotatnikWedkarza/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
