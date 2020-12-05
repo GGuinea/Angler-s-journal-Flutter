@@ -183,7 +183,8 @@ class ApiService {
     var entries = List<MarkerData>();
     if (response.statusCode == 200) {
       print(response.body);
-      final jsonDecoded = json.decode(response.body);
+
+      final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
       for (var jsonObject in jsonDecoded) {
         entries.add(MarkerData.fromJson(jsonObject));
       }
