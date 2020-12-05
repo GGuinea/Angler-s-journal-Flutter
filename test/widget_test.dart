@@ -15,6 +15,6 @@ void main() {
     await tester.pumpWidget(MyApp());
 
     // Verify that our counter starts at 0.
-    expect(find.text('Login'), findsOneWidget);
+    expect(find.text('NAZWA UZYTKOWNIKA'), findsOneWidget);
   });
 }
