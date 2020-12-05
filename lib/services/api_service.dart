@@ -176,7 +176,7 @@ class ApiService {
     Response response = await get(
       '$apiUrl/map/getMarkers/' + userInfo.userName,
       headers: <String, String>{
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
         'Authorization': 'Bearer ' + userInfo.token,
       },
     );

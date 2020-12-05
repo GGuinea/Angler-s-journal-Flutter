@@ -11,7 +11,7 @@ class MethodChooser extends StatefulWidget {
 
 class _MethodChooserState extends State<MethodChooser> {
   Future<List<String>> fetchJSONData() async {
-    var json = rootBundle.loadString('assets/fishingMethods.json');
+    var json = rootBundle.loadString('assets/fishing_methods.json');
     String jsonStr = await json;
     final jsonItems = jsonDecode(jsonStr).cast<Map<String, dynamic>>();
     List<FishingMethod> fishList = jsonItems.map<FishingMethod>((jsonStr) {
