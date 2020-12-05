@@ -216,9 +216,6 @@ class ApiService {
     } else {
       return false;
     }
-    //final jsonDecoded = await json.decode(response.body);
-    //MarkerData newMarker = MarkerData.fromJson(jsonDecoded);
-    //return newMarker;
   }
 
   Future<void> removeMarker(Marker marker, userInfo) async {
@@ -239,8 +236,5 @@ class ApiService {
     );
     print(response.statusCode);
     print(response.body);
-    //final jsonDecoded = await json.decode(response.body);
-    //MarkerData newMarker = MarkerData.fromJson(jsonDecoded);
-    //return newMarker;
   }
 }
