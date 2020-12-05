@@ -1,8 +1,8 @@
-import 'package:NotatnikWedkarza/common/common_methods.dart';
-import 'package:NotatnikWedkarza/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:notatinik_wedkarza/common/common_methods.dart';
+import 'package:notatinik_wedkarza/models/user.dart';
 import 'remind_password.dart';
 import 'signup.dart';
 import 'dashboard.dart';

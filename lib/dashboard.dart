@@ -1,8 +1,8 @@
-import 'package:NotatnikWedkarza/atlas_screen.dart';
-import 'package:NotatnikWedkarza/fishing_diary.dart';
-import 'package:NotatnikWedkarza/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:notatinik_wedkarza/atlas_screen.dart';
+import 'package:notatinik_wedkarza/fishing_diary.dart';
+import 'package:notatinik_wedkarza/models/user.dart';
 
 import 'drawer.dart';
 

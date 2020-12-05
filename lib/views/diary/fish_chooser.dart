@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:NotatnikWedkarza/models/fish.dart';
-import 'package:NotatnikWedkarza/models/static_fish_atlas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:notatinik_wedkarza/models/fish.dart';
+import 'package:notatinik_wedkarza/models/static_fish_atlas.dart';
 
 class FishChooser extends StatefulWidget {
   @override

@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'package:NotatnikWedkarza/models/static_fish_atlas.dart';
-import 'package:NotatnikWedkarza/views/card_description.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
+
+import 'package:notatinik_wedkarza/models/static_fish_atlas.dart';
+import 'package:notatinik_wedkarza/views/card_description.dart';
 
 class FishList extends StatefulWidget {
   @override

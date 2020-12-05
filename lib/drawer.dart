@@ -1,5 +1,5 @@
-import 'package:NotatnikWedkarza/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:notatinik_wedkarza/models/user.dart';
 import 'settings.dart';
 
 class CustomDrawer extends StatefulWidget {

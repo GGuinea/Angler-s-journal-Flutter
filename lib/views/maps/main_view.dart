@@ -1,10 +1,10 @@
-import 'package:NotatnikWedkarza/models/user.dart';
-import 'package:NotatnikWedkarza/services/api_service.dart';
+import 'package:notatinik_wedkarza/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_maps/flutter_google_maps.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location_permissions/location_permissions.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:notatinik_wedkarza/models/user.dart';
 
 class FishingMap extends StatefulWidget {
   final User userInfo;

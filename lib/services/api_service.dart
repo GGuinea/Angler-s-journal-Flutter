@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:NotatnikWedkarza/models/comment.dart';
-import 'package:NotatnikWedkarza/models/district_entry.dart';
-import 'package:NotatnikWedkarza/models/fishing_area.dart';
-import 'package:NotatnikWedkarza/models/fishing_entry.dart';
-import 'package:NotatnikWedkarza/models/marker.dart';
-import 'package:NotatnikWedkarza/models/user.dart';
+import 'package:notatinik_wedkarza/models/comment.dart';
+import 'package:notatinik_wedkarza/models/district_entry.dart';
+import 'package:notatinik_wedkarza/models/fishing_area.dart';
+import 'package:notatinik_wedkarza/models/fishing_entry.dart';
+import 'package:notatinik_wedkarza/models/marker.dart';
+import 'package:notatinik_wedkarza/models/user.dart';
 import 'package:flutter_google_maps/flutter_google_maps.dart';
 import 'package:http/http.dart';
 

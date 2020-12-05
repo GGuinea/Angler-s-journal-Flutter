@@ -1,5 +1,5 @@
-import 'package:NotatnikWedkarza/common/design.dart';
 import 'package:flutter/material.dart';
+import 'package:notatinik_wedkarza/common/design.dart';
 
 class PasswordReminderView extends StatelessWidget {
   final _usernameController = TextEditingController();

@@ -1,4 +1,4 @@
-import 'package:NotatnikWedkarza/models/comment.dart';
+import 'package:notatinik_wedkarza/models/comment.dart';
 
 class FishingArea {
   int id;

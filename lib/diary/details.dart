@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:NotatnikWedkarza/common/design.dart';
-import 'package:NotatnikWedkarza/models/fishing_entry.dart';
 import 'package:flutter/material.dart';
+import 'package:notatinik_wedkarza/common/design.dart';
+import 'package:notatinik_wedkarza/models/fishing_entry.dart';
 
 class Details extends StatefulWidget {
   final FishingEntry fishingEntry;

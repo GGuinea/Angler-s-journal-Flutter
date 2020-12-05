@@ -1,8 +1,8 @@
-import 'package:NotatnikWedkarza/common/common_methods.dart';
-import 'package:NotatnikWedkarza/services/api_service.dart';
+import 'package:notatinik_wedkarza/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:http/http.dart';
+import 'package:notatinik_wedkarza/common/common_methods.dart';
 
 import 'splash.dart';
 

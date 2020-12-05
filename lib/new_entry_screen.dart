@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:NotatnikWedkarza/models/fish.dart';
-import 'package:NotatnikWedkarza/models/fishing_entry.dart';
-import 'package:NotatnikWedkarza/models/user.dart';
-import 'package:NotatnikWedkarza/views/diary/fish_chooser.dart';
-import 'package:NotatnikWedkarza/views/diary/method_chooser.dart';
-import 'package:NotatnikWedkarza/views/take_picture_page.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:notatinik_wedkarza/models/fish.dart';
+import 'package:notatinik_wedkarza/models/fishing_entry.dart';
+import 'package:notatinik_wedkarza/models/user.dart';
+import 'package:notatinik_wedkarza/views/diary/fish_chooser.dart';
+import 'package:notatinik_wedkarza/views/diary/method_chooser.dart';
+import 'package:notatinik_wedkarza/views/take_picture_page.dart';
 
 import 'common/design.dart';
 import 'services/api_service.dart';

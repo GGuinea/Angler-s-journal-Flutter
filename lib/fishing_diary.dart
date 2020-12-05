@@ -1,7 +1,7 @@
-import 'package:NotatnikWedkarza/common/design.dart';
-import 'package:NotatnikWedkarza/models/user.dart';
-import 'package:NotatnikWedkarza/new_entry_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:notatinik_wedkarza/common/design.dart';
+import 'package:notatinik_wedkarza/models/user.dart';
+import 'package:notatinik_wedkarza/new_entry_screen.dart';
 
 import 'diary/details.dart';
 import 'services/api_service.dart';

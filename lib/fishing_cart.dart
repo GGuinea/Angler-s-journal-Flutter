@@ -1,5 +1,5 @@
-import 'package:NotatnikWedkarza/models/fishing_entry.dart';
 import 'package:flutter/material.dart';
+import 'package:notatinik_wedkarza/models/fishing_entry.dart';
 
 class FishingCard extends StatelessWidget {
   const FishingCard({

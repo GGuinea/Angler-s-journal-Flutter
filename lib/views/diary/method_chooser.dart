@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:NotatnikWedkarza/models/fishing_method.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:notatinik_wedkarza/models/fishing_method.dart';
 
 class MethodChooser extends StatefulWidget {
   @override

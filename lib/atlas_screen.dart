@@ -1,10 +1,11 @@
-import 'package:NotatnikWedkarza/fish_list.dart';
-import 'package:NotatnikWedkarza/models/user.dart';
-import 'package:NotatnikWedkarza/placeholder_widget.dart';
-import 'package:NotatnikWedkarza/views/atlas/fishing_area/fishing_area_list.dart';
-import 'package:NotatnikWedkarza/views/maps/main_view.dart';
 import 'package:flutter/material.dart';
+import 'package:notatinik_wedkarza/fish_list.dart';
+import 'package:notatinik_wedkarza/models/user.dart';
+import 'package:notatinik_wedkarza/placeholder_widget.dart';
 import 'dart:convert';
+
+import 'package:notatinik_wedkarza/views/atlas/fishing_area/fishing_area_list.dart';
+import 'package:notatinik_wedkarza/views/maps/main_view.dart';
 
 class AtlasScreen extends StatefulWidget {
   final User userInfo;

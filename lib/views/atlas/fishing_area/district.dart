@@ -1,8 +1,8 @@
-import 'package:NotatnikWedkarza/common/design.dart';
-import 'package:NotatnikWedkarza/models/user.dart';
-import 'package:NotatnikWedkarza/services/api_service.dart';
-import 'package:NotatnikWedkarza/views/atlas/fishing_area/fishing_area_details.dart';
+import 'package:notatinik_wedkarza/services/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:notatinik_wedkarza/common/design.dart';
+import 'package:notatinik_wedkarza/models/user.dart';
+import 'package:notatinik_wedkarza/views/atlas/fishing_area/fishing_area_details.dart';
 
 class District extends StatefulWidget {
   final User userInfo;
