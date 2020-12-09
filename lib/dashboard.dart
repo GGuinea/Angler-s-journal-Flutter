@@ -4,6 +4,7 @@ import 'package:notatinik_wedkarza/atlas_screen.dart';
 import 'package:notatinik_wedkarza/fishing_diary.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
 import 'package:notatinik_wedkarza/views/drawer/drawer.dart';
+import 'package:notatinik_wedkarza/views/social.dart';
 
 class Dashboard extends StatefulWidget {
   final User userInfo;
@@ -18,6 +19,7 @@ class _DashboardState extends State<Dashboard> {
   int _currentIndex = 1;
   final List<Widget> _children = [
     AtlasScreen(),
+    PostTable(),
     Diary(),
   ];
 
@@ -41,7 +43,8 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     _children[0] = AtlasScreen(userInfo: userInfo);
-    _children[1] = Diary(userInfo: userInfo);
+    _children[1] = PostTable(userInfo: userInfo);
+    _children[2] = Diary(userInfo: userInfo);
     return WillPopScope(
       onWillPop: () => popped(),
       child: Scaffold(
@@ -84,6 +87,7 @@ class _DashboardState extends State<Dashboard> {
               icon: Icon(Icons.art_track_outlined),
               label: "Atlas",
             ),
+            BottomNavigationBarItem(icon: Icon(Icons.list), label: "Tablica"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.anchor_outlined), label: "Polowy"),
           ],

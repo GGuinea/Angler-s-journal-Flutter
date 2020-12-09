@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notatinik_wedkarza/common/design.dart';
 import 'package:notatinik_wedkarza/fish_list.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
 import 'package:notatinik_wedkarza/placeholder_widget.dart';
@@ -34,7 +35,7 @@ class _AtlasScreenState extends State<AtlasScreen> {
           gradient: LinearGradient(
             begin: Alignment.centerRight,
             end: Alignment.bottomLeft,
-            colors: [Colors.blue, Colors.white],
+            colors: gradiendColors,
           ),
         ),
         child: FutureBuilder(

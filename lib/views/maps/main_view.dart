@@ -95,36 +95,37 @@ class _FishingMapState extends State<FishingMap> {
                         ),
                       ),
                       Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            FlatButton(
-                              onPressed: () async {
-                                Marker newMarker = Marker(
-                                  markerId,
-                                  info: title,
-                                  infoSnippet: description,
-                                  onTap: _onMarkerTap,
-                                );
-                                bool result =
-                                    await api.addMarker(newMarker, userInfo);
-                                setState(() {
-                                  if (result == true) {
-                                    _markers.add(newMarker);
-                                    GoogleMap.of(_key).addMarker(newMarker);
-                                  }
-                                });
-                                print(_markers.length);
-                                Navigator.of(context).pop();
-                              },
-                              child: Text("Dodaj"),
-                            ),
-                            FlatButton(
-                              onPressed: () async {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text("Anuluj"),
-                            ),
-                          ]),
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          FlatButton(
+                            onPressed: () async {
+                              Marker newMarker = Marker(
+                                markerId,
+                                info: title,
+                                infoSnippet: description,
+                                onTap: _onMarkerTap,
+                              );
+                              bool result =
+                                  await api.addMarker(newMarker, userInfo);
+                              setState(() {
+                                if (result == true) {
+                                  _markers.add(newMarker);
+                                  GoogleMap.of(_key).addMarker(newMarker);
+                                }
+                              });
+                              print(_markers.length);
+                              Navigator.of(context).pop();
+                            },
+                            child: Text("Dodaj"),
+                          ),
+                          FlatButton(
+                            onPressed: () async {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text("Anuluj"),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 );
