@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:notatinik_wedkarza/models/fishing_entry.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
 import 'package:http/http.dart';
 
