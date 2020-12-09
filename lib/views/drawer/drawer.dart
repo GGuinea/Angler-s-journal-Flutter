@@ -131,6 +131,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
         ListView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
+          physics: ScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: EdgeInsets.only(top: 10, left: 10, right: 10),

@@ -91,7 +91,7 @@ class _PostTableState extends State<PostTable> {
                                 [Colors.blue, Colors.lightBlue],
                               ],
                               durations: [350000, 194400, 198000, 60000],
-                              heightPercentages: [0.50, 0.53, 0.55, 0.30],
+                              heightPercentages: [0.50, 0.53, 0.55, 0.52],
                               blur: MaskFilter.blur(BlurStyle.inner, 5),
                               gradientBegin: Alignment.centerLeft,
                               gradientEnd: Alignment.centerRight,
