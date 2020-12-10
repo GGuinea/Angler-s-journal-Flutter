@@ -199,50 +199,50 @@ class _PostTableState extends State<PostTable> {
                           physics: ScrollPhysics(),
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding:
-                                  EdgeInsets.only(top: 10, left: 10, right: 10),
+                              padding: EdgeInsets.only(top: 5),
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  print(entries[index].author);
+                                },
                                 child: Card(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 22,
-                                        bottom: 22,
-                                        left: 16,
-                                        right: 16),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            InkWell(
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        entries[index].author,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 20),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                                      padding: EdgeInsets.only(
+                                          top: 2, bottom: 3, left: 5),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              CircleAvatar(
+                                                child: Text(
+                                                  entries[index].author[0],
+                                                ),
                                               ),
+                                              Text(entries[index].author,
+                                                  style: TextStyle()),
+                                              Text(entries[index].time,
+                                                  style: TextStyle()),
+                                              Text(entries[index].date,
+                                                  style: TextStyle()),
+                                            ],
+                                          ),
+                                          Container(
+                                            height: 80,
+                                            child: VerticalDivider(
+                                              color: Colors.black,
+                                              thickness: 2,
                                             ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                          ),
+                                          Column(
+                                            children: [
+                                              Text(entries[index].content,
+                                                  style: TextStyle()),
+                                            ],
+                                          )
+                                        ],
+                                      )),
                                 ),
                               ),
                             );
