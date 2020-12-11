@@ -103,7 +103,7 @@ class _FishingAreaDetailsState extends State<FishingAreaDetails> {
         district +
         "+" +
         "lowisko";
-    await launch(url, forceWebView: true);
+    await launch(url);
   }
 
   @override
