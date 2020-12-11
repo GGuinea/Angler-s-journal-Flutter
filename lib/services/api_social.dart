@@ -95,12 +95,43 @@ class ApiSocial {
       '$apiUrl/postMessage/addPost',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ' + userInfo.token,
       },
       body: jsonEncode(data),
     );
     print(response.body);
     print(response.statusCode);
     return response;
+  }
+
+  Future<Response> removeFriend(User userInfo, String friendName) async {
+    Map data = {'friendName': friendName};
+    Response response = await post(
+      '$apiUrl/friend/removeFriend/' + userInfo.userName,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+      body: jsonEncode(data),
+    );
+    print(response.body);
+    print(response.statusCode);
+    return response;
+  }
+
+  Future<int> addFriend(User userInfo, String friendName) async {
+    Map data = {'friendName': friendName};
+    Response response = await post(
+      '$apiUrl/friend/addFriend/' + userInfo.userName,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+      body: jsonEncode(data),
+    );
+    print(response.body);
+    print(response.statusCode);
+    return response.statusCode;
   }
 
   Future<List<PostMessage>> getMessages(User userInfo) async {

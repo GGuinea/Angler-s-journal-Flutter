@@ -183,32 +183,34 @@ class _PostTableState extends State<PostTable> {
                       ),
                     ),
                   ),
-                  Column(mainAxisSize: MainAxisSize.min, children: [
-                    FutureBuilder(
-                      future: fetchData(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        return ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: EdgeInsets.only(top: 5),
-                              child: InkWell(
-                                onTap: () {
-                                  print(entries[index].author);
-                                },
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FutureBuilder(
+                        future: fetchData(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          return ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            physics: ScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: EdgeInsets.only(top: 5),
+                                child: InkWell(
+                                  onTap: () {
+                                    print(entries[index].author);
+                                  },
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
                                       padding: EdgeInsets.only(
                                           top: 2, bottom: 3, left: 5),
                                       child: Row(
@@ -242,16 +244,19 @@ class _PostTableState extends State<PostTable> {
                                             ],
                                           )
                                         ],
-                                      )),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          itemCount: entries.length,
-                        );
-                      },
-                    ),
-                  ]),
+                              );
+                            },
+                            itemCount: entries.length,
+                          );
+                        },
+                      ),
+                      SizedBox(height: 20),
+                    ],
+                  ),
                 ],
               ),
             ],

@@ -17,8 +17,23 @@ class _CustomDrawerState extends State<CustomDrawer> {
   _CustomDrawerState(this.userInfo);
   final List<Widget> _child = [];
   int drawerIndicator = 0;
+  TextEditingController _friendUserName = TextEditingController();
+  String friendUsername;
+  bool flag = false;
   void populateList() async {
     _child.add(returnDrawer());
+  }
+
+  void _friendNameController(String value) {
+    setState(() {
+      friendUsername = value;
+    });
+  }
+
+  @override
+  void dispose() {
+    _friendUserName.dispose();
+    super.dispose();
   }
 
   @override
@@ -128,73 +143,142 @@ class _CustomDrawerState extends State<CustomDrawer> {
             backgroundColor: Colors.white,
           ),
         ),
-        ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          physics: ScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-              child: InkWell(
-                onTap: () {
-                  final action = CupertinoActionSheet(
-                      title: Text(entries[index], style: TextStyle()),
-                      message: Text("Wybierz opcje"),
-                      actions: [
-                        CupertinoActionSheetAction(
-                            child: Text("Usun"),
-                            isDefaultAction: true,
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            })
-                      ],
-                      cancelButton: CupertinoActionSheetAction(
-                        child: Text("Powrot"),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ));
-                  showCupertinoModalPopup(
-                      context: context, builder: (context) => action);
-                },
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        child: Text(
-                          entries[index][0],
-                        ),
-                      ),
-                      SizedBox(width: 20),
-                      Text(entries[index], style: TextStyle()),
-                    ],
-                  ),
-                ),
-              ),
-            );
+        ListTile(
+          leading: Icon(Icons.add),
+          title: Text(
+            "Dodaj znajomego",
+          ),
+          onTap: () async {
+            await getDialog();
+            setState(() {
+              drawerIndicator = 0;
+            });
           },
-          itemCount: entries.length,
+        ),
+        ListTile(
+          leading: Icon(Icons.arrow_left),
+          title: Text(
+            "Powrot",
+          ),
+          onTap: () {
+            setState(() {
+              drawerIndicator = 0;
+            });
+          },
         ),
         Expanded(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: ListTile(
-              leading: Icon(Icons.arrow_left),
-              title: Text(
-                "Powrot",
-              ),
-              onTap: () {
-                setState(() {
-                  drawerIndicator = 0;
-                });
-              },
-            ),
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            physics: ScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                child: InkWell(
+                  onTap: () {
+                    final action = CupertinoActionSheet(
+                        title: Text(entries[index], style: TextStyle()),
+                        message: Text("Wybierz opcje"),
+                        actions: [
+                          CupertinoActionSheetAction(
+                              child: Text("Usun"),
+                              isDefaultAction: true,
+                              onPressed: () {
+                                api.removeFriend(userInfo, entries[index]);
+                                setState(() {
+                                  entries.remove(index);
+                                });
+                                Navigator.of(context).pop();
+                              })
+                        ],
+                        cancelButton: CupertinoActionSheetAction(
+                          child: Text("Powrot"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ));
+                    showCupertinoModalPopup(
+                        context: context, builder: (context) => action);
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          child: Text(
+                            entries[index][0],
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Text(entries[index], style: TextStyle()),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+            itemCount: entries.length,
           ),
-        )
+        ),
       ],
+    );
+  }
+
+  getDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        children: [
+          Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Column(
+                  children: [
+                    TextField(
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        hintText: "nazwa znajomego",
+                      ),
+                      controller: _friendUserName,
+                      onChanged: _friendNameController,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FlatButton(
+                          onPressed: () async {
+                            int statusCode =
+                                await api.addFriend(userInfo, friendUsername);
+                            setState(() {
+                              if (statusCode == 200) {
+                                setState(() {
+                                  entries.add(friendUsername);
+                                  drawerIndicator = 0;
+                                });
+                              }
+                            });
+                            Navigator.of(context).pop();
+                          },
+                          child: Text("Dodaj"),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text("Anuluj"),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
