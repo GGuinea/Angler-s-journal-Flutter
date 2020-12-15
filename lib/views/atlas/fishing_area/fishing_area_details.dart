@@ -199,72 +199,60 @@ class _FishingAreaDetailsState extends State<FishingAreaDetails> {
               ),
               Expanded(
                 child: ListView.builder(
-                    itemCount: commentsCopy.length,
-                    itemBuilder: (context, index) {
-                      return new Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            bottom: Radius.circular(10),
-                            top: Radius.circular(12),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: EdgeInsets.only(top: 5),
+                      child: InkWell(
+                        onTap: () {
+                          print(commentsCopy[index].posterName);
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        ),
-                        child: Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.orange[500],
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.orange,
-                                  blurRadius: 240,
-                                  spreadRadius: 5,
-                                  offset: Offset(
-                                    155,
-                                    155,
+                          child: Padding(
+                            padding:
+                                EdgeInsets.only(top: 2, bottom: 3, left: 5),
+                            child: Row(
+                              children: [
+                                Column(
+                                  children: [
+                                    CircleAvatar(
+                                      child: Text(
+                                        commentsCopy[index].posterName[0],
+                                      ),
+                                    ),
+                                    Text(commentsCopy[index].posterName,
+                                        style: TextStyle()),
+                                    Text(commentsCopy[index].date,
+                                        style: TextStyle()),
+                                  ],
+                                ),
+                                Container(
+                                  height: 80,
+                                  child: VerticalDivider(
+                                    color: Colors.black,
+                                    thickness: 2,
                                   ),
                                 ),
+                                Column(
+                                  children: [
+                                    Text(commentsCopy[index].content,
+                                        style: TextStyle()),
+                                  ],
+                                )
                               ],
-                              gradient: LinearGradient(
-                                begin: Alignment.centerRight,
-                                end: Alignment.bottomLeft,
-                                colors: gradiendColors,
-                              ),
                             ),
-                            child: Column(
-                              children: [
-                                Row(children: [
-                                  Text("Autor: "),
-                                  Text(
-                                    commentsCopy[index].posterName,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text("Data: "),
-                                  //Text(fishingArea.comments[index].date,
-                                  //  style: TextStyle(
-                                  //    fontWeight: FontWeight.bold,
-                                  //  ),
-                                  //),
-                                ]),
-                                SizedBox(height: 2),
-                                Row(children: [
-                                  Text(
-                                    commentsCopy[index].content,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                  )
-                                ]),
-                              ],
-                            )),
-                      );
-                    }),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: commentsCopy.length,
+                ),
               ),
             ],
           ),
