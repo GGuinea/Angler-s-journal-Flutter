@@ -80,73 +80,69 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
               child: Column(
                 children: [
                   SizedBox(height: 20),
+                  getTextWidget("Woda", getBoldStyle(mainFontSize)),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(width: 20),
-                      getTextWidget("Woda: ", getBoldStyle(mainFontSize)),
+                      //getTextWidget("Woda: ", getBoldStyle(mainFontSize)),
                       getTextWidget(fishingEntry.nameOfThePlace,
                           getSimplyTextStyle(minorFontSize)),
                     ],
                   ),
                   getDivider(),
+                  getTextWidget("Data", getBoldStyle(mainFontSize)),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(width: 20),
-                      getTextWidget("Czas: ", getBoldStyle(mainFontSize)),
                       getTextWidget(fishingEntry.dateTime,
                           getSimplyTextStyle(minorFontSize)),
                     ],
                   ),
                   getDivider(),
+                  getTextWidget("Opis", getBoldStyle(mainFontSize)),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(width: 20),
-                      getTextWidget("Opis: ", getBoldStyle(mainFontSize)),
                       getTextWidget(fishingEntry.description,
                           getSimplyTextStyle(minorFontSize)),
                     ],
                   ),
                   getDivider(),
+                  getTextWidget("Metoda", getBoldStyle(mainFontSize)),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(width: 20),
-                      getTextWidget("Metoda: ", getBoldStyle(mainFontSize)),
+                      SizedBox(width: 20, height: 10),
                       getTextWidget(fishingEntry.methods,
                           getSimplyTextStyle(minorFontSize)),
                     ],
                   ),
                   getDivider(),
+                  getTextWidget("Ryby", getBoldStyle(mainFontSize)),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(width: 20),
-                      getTextWidget("Ryby: ", getBoldStyle(mainFontSize)),
                       getTextWidget(fishingEntry.fishes,
                           getSimplyTextStyle(minorFontSize)),
                     ],
                   ),
                   getDivider(),
+                  getTextWidget("Szczegoly", getBoldStyle(mainFontSize)),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(width: 20),
-                      getTextWidget("Szczegoly: ", getBoldStyle(mainFontSize)),
                       getTextWidget(fishingEntry.details,
                           getSimplyTextStyle(minorFontSize)),
                     ],
                   ),
                   getDivider(),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      SizedBox(width: 20),
-                      getTextWidget("Zdjecia: ", getBoldStyle(mainFontSize)),
-                    ],
-                  ),
+                  getTextWidget("Zdjecie", getBoldStyle(mainFontSize)),
+                  SizedBox(height: 20),
                   InteractiveViewer(
                     minScale: 1,
                     maxScale: 2,
