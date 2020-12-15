@@ -71,11 +71,10 @@ class ApiService {
         'Authorization': 'Bearer ' + userInfo.token,
       },
     );
-    //print('Authentication Bearer ' + userInfo.token);
     var entries = List<FishingEntry>();
     if (response.statusCode == 200) {
       print(response.body);
-      final jsonDecoded = json.decode(response.body);
+      final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
       for (var jsonObject in jsonDecoded) {
         entries.add(FishingEntry.fromJson(jsonObject));
       }
@@ -103,7 +102,6 @@ class ApiService {
       },
       body: jsonEncode(data),
     );
-    //print('Authentication Bearer ' + userInfo.token);
     print(response.statusCode);
     print(response.body);
     return response;
@@ -120,7 +118,7 @@ class ApiService {
     var entries = List<DistrictEntry>();
     if (response.statusCode == 200) {
       print(response.body);
-      final jsonDecoded = json.decode(response.body);
+      final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
       for (var jsonObject in jsonDecoded) {
         entries.add(DistrictEntry.fromJson(jsonObject));
       }
@@ -139,7 +137,7 @@ class ApiService {
     var entries = List<FishingArea>();
     if (response.statusCode == 200) {
       print(response.body);
-      final jsonDecoded = json.decode(response.body);
+      final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
       for (var jsonObject in jsonDecoded) {
         entries.add(FishingArea.fromJson(jsonObject));
       }
@@ -167,7 +165,7 @@ class ApiService {
     );
     print(response.statusCode);
     print(response.body);
-    final jsonDecoded = await json.decode(response.body);
+    final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
     Comment newComment = Comment.fromJson(jsonDecoded);
     return newComment;
   }

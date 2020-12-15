@@ -69,7 +69,7 @@ class ApiSocial {
     var entries = List<String>();
     if (response.statusCode == 200) {
       print(response.body);
-      final jsonDecoded = json.decode(response.body);
+      final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
       for (var jsonObject in jsonDecoded) {
         entries.add(jsonObject);
       }
@@ -145,7 +145,7 @@ class ApiSocial {
     var entries = List<PostMessage>();
     if (response.statusCode == 200) {
       print(response.body);
-      final jsonDecoded = json.decode(response.body);
+      final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
       for (var jsonObject in jsonDecoded) {
         entries.add(PostMessage.fromJson(jsonObject));
       }
