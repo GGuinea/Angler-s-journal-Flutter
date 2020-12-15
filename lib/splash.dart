@@ -141,7 +141,9 @@ class _SplashScreenState extends State<SplashScreen> {
                                       Dashboard(userInfo: user),
                                 ));
                               } else {
-                                printOutput(serverResponse.body, context);
+                                printOutput(
+                                    "Wystąpil problem, sprawdź swoje dane, lub spróbuj później",
+                                    context);
                               }
                             }
                           },
@@ -304,7 +306,8 @@ class _SplashScreenState extends State<SplashScreen> {
         builder: (context) => Dashboard(userInfo: user),
       ));
     } else {
-      printOutput(serverResponse.body, context);
+      printOutput(
+          "Wystąpił bład, sprawdź swoje dane lub spróbuj później", context);
     }
   }
 }
