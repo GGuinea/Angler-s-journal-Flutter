@@ -64,12 +64,6 @@ class _DashboardState extends State<Dashboard> {
               },
               icon: Icon(Icons.note_outlined),
             ),
-            IconButton(
-              onPressed: () {
-                print("turn on flashlight");
-              },
-              icon: Icon(Icons.highlight),
-            ),
             Builder(
               builder: (context) => IconButton(
                 icon: Icon(Icons.account_circle_outlined),
