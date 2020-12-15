@@ -64,7 +64,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ),
         ),
         ListTile(
-          leading: Icon(Icons.arrow_forward),
+          leading: Icon(Icons.format_list_numbered),
           title: Text(
             "Statystyki",
           ),

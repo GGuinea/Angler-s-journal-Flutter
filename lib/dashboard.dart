@@ -81,7 +81,7 @@ class _DashboardState extends State<Dashboard> {
               icon: Icon(Icons.art_track_outlined),
               label: "Atlas",
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: "Tablica"),
+            BottomNavigationBarItem(icon: Icon(Icons.tablet), label: "Tablica"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.anchor_outlined), label: "Polowy"),
           ],
