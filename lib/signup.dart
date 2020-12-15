@@ -114,7 +114,10 @@ class _SignupPageState extends State<SignupPage> {
                                   _emailController.text,
                                   _passwordController.text);
                               Response serverResponse = await result;
-                              printOutput(serverResponse.body, context);
+                              if (serverResponse.body.contains("taken!")) {
+                                printOutput(
+                                    "Uzytkownik juz istnieje!", context);
+                              }
                               if (serverResponse.statusCode == 200) {
                                 Navigator.of(context)
                                     .pushReplacement(MaterialPageRoute(
