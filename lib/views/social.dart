@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notatinik_wedkarza/common/design.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
+import 'package:notatinik_wedkarza/services/api_service.dart';
 import 'package:notatinik_wedkarza/services/api_social.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
@@ -18,7 +19,9 @@ class _PostTableState extends State<PostTable> {
   TextEditingController _contentController = TextEditingController();
   String content = "";
   ApiSocial api = ApiSocial();
+  ApiService apiService = ApiService();
   var entries = [];
+  bool remove = false;
 
   void _onControllerChange(String value) {
     setState(() {
@@ -46,6 +49,46 @@ class _PostTableState extends State<PostTable> {
   void dispose() {
     _contentController.dispose();
     super.dispose();
+  }
+
+  void _onPostTapped(int mode, int id) async {
+    String title = "";
+    if (mode == 0) {
+      title = "Czy chces usunac?";
+    } else {
+      title = "Czy chces zglosci?";
+    }
+    await showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(title),
+        children: [
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FlatButton(
+                    onPressed: () async {
+                      await apiService.removePost(id, userInfo);
+                      remove = true;
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Tak"),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Nie"),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -203,8 +246,24 @@ class _PostTableState extends State<PostTable> {
                               return Padding(
                                 padding: EdgeInsets.only(top: 5),
                                 child: InkWell(
-                                  onTap: () {
-                                    print(entries[index].author);
+                                  onLongPress: () async {
+                                    if (userInfo.userName ==
+                                        entries[index].author) {
+                                      print(entries[index].author);
+                                      _onPostTapped(0, entries[index].id);
+                                    } else {
+                                      _onPostTapped(1, entries[index].id);
+                                    }
+                                    if (remove == true) {
+                                      setState(
+                                        () {
+                                          remove = false;
+                                          entries[index].content =
+                                              "Wiadomosc usunieta";
+                                        },
+                                      );
+                                    }
+                                    await fetchData();
                                   },
                                   child: Card(
                                     shape: RoundedRectangleBorder(

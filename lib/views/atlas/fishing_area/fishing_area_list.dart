@@ -22,7 +22,7 @@ class _FishingAreaListState extends State<FishingAreaList> {
     entries = new List.from(futureEntries.reversed);
   }
 
-  Future<bool> fetchData() => Future.delayed(Duration(seconds: 1), () {
+  Future<bool> fetchData() => Future.delayed(Duration(seconds: 2), () async {
         initState();
         return true;
       });

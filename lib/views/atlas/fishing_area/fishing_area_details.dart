@@ -19,6 +19,7 @@ class _FishingAreaDetailsState extends State<FishingAreaDetails> {
   final User userInfo;
   FishingArea fishingArea;
   bool firstTime = true;
+  bool removed = false;
   final ApiService api = ApiService();
 
   _FishingAreaDetailsState(this.userInfo, this.fishingArea);
@@ -104,6 +105,50 @@ class _FishingAreaDetailsState extends State<FishingAreaDetails> {
         "+" +
         "lowisko";
     await launch(url);
+  }
+
+  void _onCommentTapped(int mode, int id) async {
+    String title = "";
+    if (mode == 0) {
+      title = "Czy chces usunac?";
+    } else {
+      title = "Czy chces zglosci?";
+    }
+    await showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(title),
+        children: [
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FlatButton(
+                    onPressed: () async {
+                      if (mode == 0) {
+                        await api.removeComment(id, userInfo);
+                      }
+                      setState(() {
+                        removed = true;
+                      });
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Tak"),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Nie"),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -206,8 +251,21 @@ class _FishingAreaDetailsState extends State<FishingAreaDetails> {
                     return Padding(
                       padding: EdgeInsets.only(top: 5),
                       child: InkWell(
-                        onTap: () {
-                          print(commentsCopy[index].posterName);
+                        onLongPress: () async {
+                          if (userInfo.userName ==
+                              commentsCopy[index].posterName) {
+                            _onCommentTapped(0, commentsCopy[index].id);
+                            if (removed == true) {
+                              setState(() {
+                                fishingArea.comments
+                                    .remove(commentsCopy[index]);
+                                removed = false;
+                              });
+                            }
+                          } else {
+                            _onCommentTapped(0, commentsCopy[index].id);
+                            print(commentsCopy[index].posterName);
+                          }
                         },
                         child: Card(
                           shape: RoundedRectangleBorder(

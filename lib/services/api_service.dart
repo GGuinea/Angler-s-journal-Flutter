@@ -268,4 +268,26 @@ class ApiService {
     );
     print(response.statusCode);
   }
+
+  Future<void> removeComment(int id, userInfo) async {
+    Response response = await delete(
+      '$apiUrl/comment/deleteComment/' + id.toString(),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+    );
+    print(response.statusCode);
+  }
+
+  Future<void> removePost(int id, userInfo) async {
+    Response response = await delete(
+      '$apiUrl/postMessage/deletePost/' + id.toString(),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+    );
+    print(response.statusCode);
+  }
 }
