@@ -51,7 +51,7 @@ class _PostTableState extends State<PostTable> {
     super.dispose();
   }
 
-  void _onPostTapped(int mode, int id) async {
+  Future<void> _onPostTapped(int mode, int id) async {
     String title = "";
     if (mode == 0) {
       title = "Czy chces usunac?";
@@ -198,7 +198,7 @@ class _PostTableState extends State<PostTable> {
                                 border: OutlineInputBorder(),
                                 focusColor: Colors.blue,
                                 hintText:
-                                    "daj znać znajomym jak idą Ci połowy,\noraz sprawdź co u nich!",
+                                    "Daj znać znajomym jak idą Ci połowy,\noraz sprawdź co u nich!",
                                 hintStyle: TextStyle(
                                   color: Colors.black54,
                                   fontFamily: 'Montserrat',
@@ -250,20 +250,20 @@ class _PostTableState extends State<PostTable> {
                                     if (userInfo.userName ==
                                         entries[index].author) {
                                       print(entries[index].author);
-                                      _onPostTapped(0, entries[index].id);
+                                      await _onPostTapped(0, entries[index].id);
                                     } else {
-                                      _onPostTapped(1, entries[index].id);
+                                      await _onPostTapped(1, entries[index].id);
                                     }
                                     if (remove == true) {
                                       setState(
                                         () {
+                                          entries.remove(entries[index]);
                                           remove = false;
-                                          entries[index].content =
-                                              "Wiadomosc usunieta";
                                         },
                                       );
+                                    } else {
+                                      setState(() {});
                                     }
-                                    await fetchData();
                                   },
                                   child: Card(
                                     shape: RoundedRectangleBorder(
