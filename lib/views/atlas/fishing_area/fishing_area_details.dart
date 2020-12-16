@@ -107,7 +107,7 @@ class _FishingAreaDetailsState extends State<FishingAreaDetails> {
     await launch(url);
   }
 
-  void _onCommentTapped(int mode, int id) async {
+  Future<void> _onCommentTapped(int mode, int id) async {
     String title = "";
     if (mode == 0) {
       title = "Czy chces usunac?";
@@ -254,16 +254,18 @@ class _FishingAreaDetailsState extends State<FishingAreaDetails> {
                         onLongPress: () async {
                           if (userInfo.userName ==
                               commentsCopy[index].posterName) {
-                            _onCommentTapped(0, commentsCopy[index].id);
+                            await _onCommentTapped(0, commentsCopy[index].id);
                             if (removed == true) {
                               setState(() {
                                 fishingArea.comments
                                     .remove(commentsCopy[index]);
                                 removed = false;
                               });
+                            } else {
+                              setState(() {});
                             }
                           } else {
-                            _onCommentTapped(0, commentsCopy[index].id);
+                            await _onCommentTapped(0, commentsCopy[index].id);
                             print(commentsCopy[index].posterName);
                           }
                         },
