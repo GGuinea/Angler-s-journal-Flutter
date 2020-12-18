@@ -3,6 +3,7 @@ import 'package:flutter_google_maps/flutter_google_maps.dart';
 import 'package:notatinik_wedkarza/common/design.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
 import 'package:notatinik_wedkarza/services/api_service.dart';
+import 'package:notatinik_wedkarza/services/api_social.dart';
 
 class MarkerListView extends StatefulWidget {
   final User userInfo;
@@ -16,6 +17,7 @@ class _MarkerListViewState extends State<MarkerListView> {
   final User userInfo;
   var entries = [];
   final ApiService api = ApiService();
+  final ApiSocial apiSocial = ApiSocial();
   Future<bool> fetchData() => Future.delayed(Duration(seconds: 3), () {
         initState();
         return true;
@@ -39,6 +41,9 @@ class _MarkerListViewState extends State<MarkerListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Zapisane miejsca"),
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -129,12 +134,67 @@ class _MarkerListViewState extends State<MarkerListView> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
+                                //IconButton(
+                                //  onPressed: () {},
+                                //  icon: Icon(Icons.share),
+                                //),
                                 IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.share),
-                                ),
-                                IconButton(
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (context) => SimpleDialog(
+                                        title:
+                                            Text("Czy na pewno chcesz usunąć?"),
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 20, right: 20),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                RaisedButton(
+                                                  shape: StadiumBorder(),
+                                                  color: Colors.orange[500],
+                                                  onPressed: () {
+                                                    GeoCoord position =
+                                                        GeoCoord(
+                                                            entries[index]
+                                                                .latitude,
+                                                            entries[index]
+                                                                .longitude);
+                                                    Marker newMarker = Marker(
+                                                        position,
+                                                        info: entries[index]
+                                                            .title,
+                                                        infoSnippet:
+                                                            entries[index]
+                                                                .description);
+                                                    api.removeMarker(
+                                                        newMarker, userInfo);
+                                                    setState(() {
+                                                      entries.remove(
+                                                          entries[index]);
+                                                    });
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text("Tak"),
+                                                ),
+                                                RaisedButton(
+                                                  shape: StadiumBorder(),
+                                                  color: Colors.orange[500],
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text("Nie"),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
                                   icon: Icon(Icons.delete),
                                 ),
                               ],
