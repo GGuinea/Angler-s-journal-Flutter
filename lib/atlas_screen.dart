@@ -7,6 +7,7 @@ import 'dart:convert';
 
 import 'package:notatinik_wedkarza/views/atlas/fishing_area/fishing_area_list.dart';
 import 'package:notatinik_wedkarza/views/maps/main_view.dart';
+import 'package:notatinik_wedkarza/views/maps/map_screen.dart';
 
 class AtlasScreen extends StatefulWidget {
   final User userInfo;
@@ -22,13 +23,15 @@ class _AtlasScreenState extends State<AtlasScreen> {
     FishList(),
     FishingAreaList(),
     PlaceholderWidget(Colors.red, "regulaminy"),
-    FishingMap()
+    //FishingMap()
+    MapScreen()
   ];
 
   @override
   Widget build(BuildContext context) {
     listOfElements[1] = FishingAreaList(userInfo: userInfo);
-    listOfElements[3] = FishingMap(userInfo: userInfo);
+    //listOfElements[3] = FishingMap(userInfo: userInfo);
+    listOfElements[3] = MapScreen(userInfo: userInfo);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -46,43 +49,44 @@ class _AtlasScreenState extends State<AtlasScreen> {
               return ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => listOfElements[
-                                    newData[index]['index'] - 1]),
-                          );
-                        },
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: 32, bottom: 32, left: 16, right: 16),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    InkWell(
-                                      child: Text(
-                                        newData[index]['name'],
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
+                    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  listOfElements[newData[index]['index'] - 1]),
+                        );
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: 32, bottom: 32, left: 16, right: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    child: Text(
+                                      newData[index]['name'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                      ));
+                      ),
+                    ),
+                  );
                 },
                 itemCount: newData == null ? 0 : newData.length,
               );
