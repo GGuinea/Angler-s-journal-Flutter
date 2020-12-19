@@ -157,27 +157,31 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
 
     void _showOptions(BuildContext context) async {
       showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return Container(
-                height: 150,
-                child: Column(children: <Widget>[
-                  ListTile(
-                      onTap: () {
-                        Navigator.pop(context);
-                        _showCamera();
-                      },
-                      leading: Icon(Icons.photo_camera),
-                      title: Text("Zrob nowe zdjecie")),
-                  ListTile(
-                      onTap: () {
-                        Navigator.pop(context);
-                        _showPhotoLibrary();
-                      },
-                      leading: Icon(Icons.photo_library),
-                      title: Text("Wybierz zdjecie z galerii"))
-                ]));
-          });
+        context: context,
+        builder: (context) {
+          return Container(
+            height: 150,
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                    onTap: () {
+                      Navigator.pop(context);
+                      _showCamera();
+                    },
+                    leading: Icon(Icons.photo_camera),
+                    title: Text("Zrob nowe zdjecie")),
+                ListTile(
+                    onTap: () {
+                      Navigator.pop(context);
+                      _showPhotoLibrary();
+                    },
+                    leading: Icon(Icons.photo_library),
+                    title: Text("Wybierz zdjecie z galerii"))
+              ],
+            ),
+          );
+        },
+      );
     }
 
     return Scaffold(
@@ -325,8 +329,9 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                       fishes.add(output.name +
                           " " +
                           output.size +
-                          " " +
-                          output.weight);
+                          "cm " +
+                          output.weight +
+                          "kg");
                     });
                   },
                   child: Text("Dodaj zlowiona rybe"),
@@ -360,7 +365,8 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                           "\nHak:" +
                           hook +
                           "\nOdleglosc:" +
-                          length);
+                          length +
+                          "m");
                     });
                   },
                   child: Text("Dodaj szczegol"),
