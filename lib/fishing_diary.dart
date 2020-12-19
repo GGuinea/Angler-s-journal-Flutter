@@ -51,8 +51,8 @@ class _DiaryState extends State<Diary> {
                     onTap: () {
                       Navigator.of(context).push(
                         new MaterialPageRoute(
-                          builder: (context) =>
-                              Details(fishingEntry: entries[index]),
+                          builder: (context) => Details(
+                              fishingEntry: entries[index], userInfo: userInfo),
                         ),
                       );
                       print(entries.length);

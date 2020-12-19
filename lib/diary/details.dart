@@ -3,25 +3,32 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:notatinik_wedkarza/common/design.dart';
 import 'package:notatinik_wedkarza/models/fishing_entry.dart';
+import 'package:notatinik_wedkarza/models/user.dart';
+import 'package:notatinik_wedkarza/services/api_social.dart';
 
 class Details extends StatefulWidget {
   final FishingEntry fishingEntry;
-  Details({this.fishingEntry});
+  final User userInfo;
+  Details({this.fishingEntry, this.userInfo});
   @override
-  _DetailsState createState() => _DetailsState(fishingEntry);
+  _DetailsState createState() => _DetailsState(fishingEntry, userInfo);
 }
 
 class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   final FishingEntry fishingEntry;
+  final User userInfo;
+  ApiSocial apiSocial = new ApiSocial();
   var image;
   var bytes;
-  _DetailsState(this.fishingEntry);
+  _DetailsState(this.fishingEntry, this.userInfo);
   @override
   void initState() {
-    setState(() {
-      bytes = base64Decode(fishingEntry.img);
-      print(fishingEntry.img);
-    });
+    setState(
+      () {
+        bytes = base64Decode(fishingEntry.img);
+        print(fishingEntry.img);
+      },
+    );
 
     super.initState();
   }
@@ -60,6 +67,48 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text(fishingEntry.name),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await showDialog(
+                context: context,
+                builder: (context) => SimpleDialog(
+                  title: Text("Cz na pewno chcesz udostępnić?"),
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FlatButton(
+                          onPressed: () async {
+                            String content;
+                            content = "Moje ostatnie połowy:\n" +
+                                "Miejsce: " +
+                                fishingEntry.nameOfThePlace +
+                                "\n" +
+                                "Sposób połowu: " +
+                                fishingEntry.methods +
+                                "Ryby: " +
+                                fishingEntry.fishes;
+                            apiSocial.postMessage(userInfo, content);
+                            Navigator.of(context).pop();
+                          },
+                          child: Text("Tak"),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text("Nie"),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+            icon: Icon(Icons.share),
+          )
+        ],
       ),
       body: Container(
         width: double.infinity,
