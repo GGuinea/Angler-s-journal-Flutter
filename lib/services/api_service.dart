@@ -290,4 +290,15 @@ class ApiService {
     );
     print(response.statusCode);
   }
+
+  Future<void> removeEntry(int id, userInfo) async {
+    Response response = await delete(
+      '$apiUrl/data/deleteEntry/' + id.toString(),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+    );
+    print(response.statusCode);
+  }
 }

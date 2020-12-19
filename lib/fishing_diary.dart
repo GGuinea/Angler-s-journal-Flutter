@@ -57,6 +57,73 @@ class _DiaryState extends State<Diary> {
                       );
                       print(entries.length);
                     },
+                    onLongPress: () async {
+                      await showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ListTile(
+                                leading: Icon(Icons.delete),
+                                title: Text("Usun pozycje"),
+                                onTap: () async {
+                                  await showDialog(
+                                      context: context,
+                                      builder: (context) => SimpleDialog(
+                                            title: Text(
+                                                "Czy na pewno chcesz usunac?"),
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 20, right: 20),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    RaisedButton(
+                                                      shape: StadiumBorder(),
+                                                      color: Colors.orange[500],
+                                                      onPressed: () {
+                                                        setState(
+                                                          () {
+                                                            api.removeEntry(
+                                                                entries[index]
+                                                                    .id,
+                                                                userInfo);
+                                                            entries.remove(
+                                                                entries[index]);
+                                                            entries.remove(
+                                                                entries[index]);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                        );
+                                                      },
+                                                      child: Text("Tak"),
+                                                    ),
+                                                    RaisedButton(
+                                                      shape: StadiumBorder(),
+                                                      color: Colors.orange[500],
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: Text("Nie"),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ));
+                                },
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    },
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -65,10 +132,8 @@ class _DiaryState extends State<Diary> {
                         padding: EdgeInsets.only(
                             top: 22, bottom: 22, left: 16, right: 16),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 InkWell(
                                   child: Column(
