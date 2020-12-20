@@ -9,6 +9,7 @@ import 'dashboard.dart';
 import 'package:http/http.dart';
 import 'services/api_service.dart';
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -27,6 +28,12 @@ class _SplashScreenState extends State<SplashScreen> {
           "434767421435-v7880rd311cfjdi1l11phcvrsesmeeca.apps.googleusercontent.com");
   GoogleSignInAccount googleAccout;
   GoogleSignInAuthentication auth;
+
+  @override
+  void initState() {
+    checkPrefs();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +142,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                 user.userName = _usernameCotroller.text;
                                 user.password = _passwordController.text;
                                 print(user.token);
+                                savePrefs();
                                 Navigator.of(context)
                                     .pushReplacement(MaterialPageRoute(
                                   builder: (context) =>
@@ -309,5 +317,23 @@ class _SplashScreenState extends State<SplashScreen> {
       printOutput(
           "Wystąpił bład, sprawdź swoje dane lub spróbuj później", context);
     }
+  }
+
+  void checkPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String username = (prefs.getString('username'));
+    String password = (prefs.getString('password'));
+    setState(() {
+      _usernameCotroller.text = username;
+      _passwordController.text = password;
+    });
+  }
+
+  void savePrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String username = _usernameCotroller.text;
+    String password = _passwordController.text;
+    await prefs.setString('username', username);
+    await prefs.setString('password', password);
   }
 }

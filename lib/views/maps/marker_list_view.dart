@@ -104,7 +104,8 @@ class _MarkerListViewState extends State<MarkerListView> {
                                               Row(
                                                 children: [
                                                   Text(
-                                                    entries[index].title,
+                                                    entries[index]
+                                                        .titleForMarker,
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -217,7 +218,7 @@ class _MarkerListViewState extends State<MarkerListView> {
                                                     Marker newMarker = Marker(
                                                         position,
                                                         info: entries[index]
-                                                            .title,
+                                                            .titleForMarker,
                                                         infoSnippet:
                                                             entries[index]
                                                                 .description);
