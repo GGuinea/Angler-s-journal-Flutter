@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_google_maps/flutter_google_maps.dart';
 import 'package:notatinik_wedkarza/common/design.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
 import 'package:notatinik_wedkarza/services/api_service.dart';
@@ -18,10 +19,14 @@ class _PostTableState extends State<PostTable> {
   _PostTableState(this.userInfo);
   TextEditingController _contentController = TextEditingController();
   String content = "";
-  ApiSocial api = ApiSocial();
+  ApiSocial apiSocial = ApiSocial();
   ApiService apiService = ApiService();
   var entries = [];
   bool remove = false;
+  String titleForMarker = "";
+  String description = "";
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
 
   void _onControllerChange(String value) {
     setState(() {
@@ -35,7 +40,7 @@ class _PostTableState extends State<PostTable> {
       });
 
   void getAllEntres() async {
-    var futureEntries = await api.getMessages(userInfo);
+    var futureEntries = await apiSocial.getMessages(userInfo);
     entries = new List.from(futureEntries);
   }
 
@@ -45,18 +50,34 @@ class _PostTableState extends State<PostTable> {
     super.initState();
   }
 
+  void _titleChanged(String value) {
+    setState(() {
+      titleForMarker = value;
+    });
+  }
+
+  void _descriptionChanged(String value) {
+    setState(() {
+      description = value;
+    });
+  }
+
   @override
   void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
     _contentController.dispose();
     super.dispose();
   }
 
-  Future<void> _onPostTapped(int mode, int id) async {
+  Future<void> _onPostTapped(int mode, int id, String postContent) async {
     String title = "";
     if (mode == 0) {
       title = "Czy chces usunac?";
+    } else if (mode == 1) {
+      title = "Czy chces zgloscic?";
     } else {
-      title = "Czy chces zglosci?";
+      title = "Czy chces zaimportowac?";
     }
     await showDialog(
       context: context,
@@ -70,8 +91,79 @@ class _PostTableState extends State<PostTable> {
                 children: [
                   FlatButton(
                     onPressed: () async {
-                      await apiService.removePost(id, userInfo);
-                      remove = true;
+                      if (mode == 0) {
+                        await apiService.removePost(id, userInfo);
+                        remove = true;
+                      } else if (mode == 1) {
+                        print("reporting is not working");
+                      } else {
+                        await showDialog(
+                          context: context,
+                          builder: (content) => SimpleDialog(
+                            title: Text("Wpisz dane"),
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 20, right: 20),
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: SingleChildScrollView(
+                                      child: Column(
+                                    children: [
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          hintText: "Nazwa",
+                                        ),
+                                        controller: _titleController,
+                                        onChanged: _titleChanged,
+                                      ),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          hintText: "Opis",
+                                        ),
+                                        controller: _descriptionController,
+                                        onChanged: _descriptionChanged,
+                                      ),
+                                    ],
+                                  )),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  FlatButton(
+                                    onPressed: () async {
+                                      var x = double.parse(postContent
+                                          .split("\n")[1]
+                                          .split(": ")[1]);
+                                      var y = double.parse(postContent
+                                          .split("\n")[2]
+                                          .split(":")[1]);
+                                      GeoCoord markerId = GeoCoord(x, y);
+                                      Marker newMarker = Marker(
+                                        markerId,
+                                        info: titleForMarker,
+                                        infoSnippet: description,
+                                      );
+                                      bool result = await apiService.addMarker(
+                                          newMarker, userInfo);
+                                      print(result);
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text("Dodaj"),
+                                  ),
+                                  FlatButton(
+                                    onPressed: () async {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text("Anuluj"),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      }
                       Navigator.of(context).pop();
                     },
                     child: Text("Tak"),
@@ -211,7 +303,8 @@ class _PostTableState extends State<PostTable> {
                           RaisedButton(
                             shape: StadiumBorder(),
                             onPressed: () async {
-                              await api.postMessage(userInfo, content);
+                              await apiSocial.postMessage(
+                                  userInfo, content, false);
                               setState(() {
                                 _contentController.text = "";
                               });
@@ -247,12 +340,22 @@ class _PostTableState extends State<PostTable> {
                                 padding: EdgeInsets.only(top: 5),
                                 child: InkWell(
                                   onLongPress: () async {
+                                    print(entries[index].isMarker);
                                     if (userInfo.userName ==
                                         entries[index].author) {
                                       print(entries[index].author);
-                                      await _onPostTapped(0, entries[index].id);
+                                      await _onPostTapped(
+                                          0, entries[index].id, null);
                                     } else {
-                                      await _onPostTapped(1, entries[index].id);
+                                      if (entries[index].isMarker == false) {
+                                        await _onPostTapped(
+                                            1, entries[index].id, null);
+                                      } else {
+                                        await _onPostTapped(
+                                            2,
+                                            entries[index].id,
+                                            entries[index].content);
+                                      }
                                     }
                                     if (remove == true) {
                                       setState(

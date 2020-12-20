@@ -134,10 +134,61 @@ class _MarkerListViewState extends State<MarkerListView> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                //IconButton(
-                                //  onPressed: () {},
-                                //  icon: Icon(Icons.share),
-                                //),
+                                IconButton(
+                                  onPressed: () async {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (context) => SimpleDialog(
+                                        title: Text(
+                                            "Czy na pewno chcesz udostępnić pozycje swoim znajomym?"),
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 20, right: 20),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                RaisedButton(
+                                                  shape: StadiumBorder(),
+                                                  color: Colors.orange[500],
+                                                  onPressed: () {
+                                                    String content =
+                                                        "Jedna z moich ulubionych pozycji" +
+                                                            "\nszerokość: " +
+                                                            entries[index]
+                                                                .latitude
+                                                                .toString() +
+                                                            "\nwysookść:" +
+                                                            entries[index]
+                                                                .longitude
+                                                                .toString() +
+                                                            "\nPrzytrzymaj aby zaimportować!";
+                                                    apiSocial.postMessage(
+                                                        userInfo,
+                                                        content,
+                                                        true);
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text("Tak"),
+                                                ),
+                                                RaisedButton(
+                                                  shape: StadiumBorder(),
+                                                  color: Colors.orange[500],
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text("Nie"),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  icon: Icon(Icons.share),
+                                ),
                                 IconButton(
                                   onPressed: () async {
                                     await showDialog(

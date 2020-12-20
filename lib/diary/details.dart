@@ -89,7 +89,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                                 fishingEntry.methods +
                                 "Ryby: " +
                                 fishingEntry.fishes;
-                            apiSocial.postMessage(userInfo, content);
+                            apiSocial.postMessage(userInfo, content, false);
                             Navigator.of(context).pop();
                           },
                           child: Text("Tak"),

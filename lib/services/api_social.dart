@@ -77,7 +77,8 @@ class ApiSocial {
     return entries;
   }
 
-  Future<Response> postMessage(User userInfo, String content) async {
+  Future<Response> postMessage(
+      User userInfo, String content, bool isMarker) async {
     String date = DateTime.now().year.toString() +
         "-" +
         DateTime.now().month.toString() +
@@ -89,8 +90,10 @@ class ApiSocial {
       'content': content,
       'posterName': userInfo.userName,
       'date': date,
-      'time': time
+      'time': time,
+      'isMarker': isMarker
     };
+    print(data);
     Response response = await post(
       '$apiUrl/postMessage/addPost',
       headers: <String, String>{
