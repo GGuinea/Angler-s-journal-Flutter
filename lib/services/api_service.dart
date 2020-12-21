@@ -5,6 +5,7 @@ import 'package:notatinik_wedkarza/models/district_entry.dart';
 import 'package:notatinik_wedkarza/models/fishing_area.dart';
 import 'package:notatinik_wedkarza/models/fishing_entry.dart';
 import 'package:notatinik_wedkarza/models/marker.dart';
+import 'package:notatinik_wedkarza/models/stats.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
 import 'package:flutter_google_maps/flutter_google_maps.dart';
 import 'package:http/http.dart';
@@ -300,5 +301,22 @@ class ApiService {
       },
     );
     print(response.statusCode);
+  }
+
+  Future<Statistics> getStats(User userInfo) async {
+    Response response = await get(
+      '$apiUrl/statistics/getStats/' + userInfo.id.toString(),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+    );
+    var entry;
+    if (response.statusCode == 200) {
+      print(response.body);
+      final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
+      entry = Statistics.fromJson(jsonDecoded);
+    }
+    return entry;
   }
 }

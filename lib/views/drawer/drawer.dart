@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
+import 'package:notatinik_wedkarza/services/api_service.dart';
 import 'package:notatinik_wedkarza/services/api_social.dart';
 import 'package:notatinik_wedkarza/views/drawer/bug_report.dart';
 import 'package:notatinik_wedkarza/views/drawer/change_password.dart';
@@ -40,6 +41,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   void initState() {
     populateList();
     getAllEntres();
+    getStats();
     super.initState();
   }
 
@@ -68,19 +70,35 @@ class _CustomDrawerState extends State<CustomDrawer> {
           title: Text(
             "Statystyki",
           ),
-        ),
-        ListTile(
-            leading: Icon(Icons.contacts),
-            title: Text(
-              "Znajomi",
-            ),
-            onTap: () async {
-              Widget tmp = await returnFriends();
-              setState(() {
+          onTap: () async {
+            _child.clear();
+            populateList();
+            Widget tmp = await returnStats();
+            setState(
+              () {
                 _child.add(tmp);
                 drawerIndicator = 1;
-              });
-            }),
+              },
+            );
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.contacts),
+          title: Text(
+            "Znajomi",
+          ),
+          onTap: () async {
+            _child.clear();
+            populateList();
+            Widget tmp = await returnFriends();
+            setState(
+              () {
+                _child.add(tmp);
+                drawerIndicator = 1;
+              },
+            );
+          },
+        ),
         ListTile(
           leading: Icon(Icons.settings),
           title: Text(
@@ -118,16 +136,105 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   Future<bool> fetchData() => Future.delayed(Duration(seconds: 3), () {
         initState();
-        //getAllEntres();
         return true;
       });
 
   final ApiSocial api = ApiSocial();
+  final ApiService apiService = ApiService();
   var entries = [];
+  var stats;
 
   void getAllEntres() async {
     var futureEntries = await api.getFriendList(userInfo);
     entries = new List.from(futureEntries.reversed);
+  }
+
+  void getStats() async {
+    stats = await apiService.getStats(userInfo);
+  }
+
+  Future<Widget> returnStats() async {
+    return Column(
+      children: <Widget>[
+        UserAccountsDrawerHeader(
+          accountName: Text(userInfo.userName),
+          accountEmail: Text(userInfo.email),
+          currentAccountPicture: CircleAvatar(
+            child: Text(
+              userInfo.userName[0],
+            ),
+            backgroundColor: Colors.white,
+          ),
+        ),
+        ListTile(
+          leading: Icon(Icons.arrow_left),
+          title: Text(
+            "Powrot",
+          ),
+          onTap: () {
+            setState(() {
+              drawerIndicator = 0;
+            });
+          },
+        ),
+        Divider(height: 20),
+        Text(
+          "Liczba złowionych ryb:",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          stats.fishes.toString(),
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
+        Divider(height: 20),
+        Text(
+          "Liczba zapisanych połowów:",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          stats.diaries.toString(),
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
+        Divider(height: 20),
+        Text(
+          "Liczba zapisanych miejsc:",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          stats.markers.toString(),
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
+        Divider(height: 20),
+        Text(
+          "Twój obecny poziom:",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          stats.level.toString(),
+          style: TextStyle(
+            fontSize: 70,
+          ),
+        ),
+      ],
+    );
   }
 
   Future<Widget> returnFriends() async {
