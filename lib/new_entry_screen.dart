@@ -217,8 +217,12 @@ class _NewEntryScreenState extends State<NewEntryScreen> {
                   methodsConverted,
                   fishesConverted,
                   additionalsConverted);
-              api.addEntry(fishingEntry, userInfo);
-              Navigator.of(context).pop();
+              final entryEncoded = await api.addEntry(fishingEntry, userInfo);
+              final jsonDecoded =
+                  json.decode(utf8.decode(entryEncoded.bodyBytes));
+              final entry = FishingEntry.fromJson(jsonDecoded);
+
+              Navigator.of(context).pop(entry);
             },
             color: Colors.orange[400],
             splashColor: Colors.blue,
