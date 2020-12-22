@@ -84,7 +84,7 @@ class _ToDoState extends State<ToDo> {
                             Flexible(
                               child: TextField(
                                 decoration: InputDecoration(
-                                  hintText: "zadanie",
+                                  hintText: "wpisz co masz do zrobienia",
                                 ),
                                 controller: _todoController,
                                 onChanged: onTodoChange,
@@ -123,7 +123,7 @@ class _ToDoState extends State<ToDo> {
                                 child: CircularProgressIndicator(),
                               );
                             }
-                            return ListView.builder(
+                            return ReorderableListView.builder(
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               physics: ScrollPhysics(),
