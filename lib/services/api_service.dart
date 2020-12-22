@@ -6,6 +6,7 @@ import 'package:notatinik_wedkarza/models/fishing_area.dart';
 import 'package:notatinik_wedkarza/models/fishing_entry.dart';
 import 'package:notatinik_wedkarza/models/marker.dart';
 import 'package:notatinik_wedkarza/models/stats.dart';
+import 'package:notatinik_wedkarza/models/to_do.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
 import 'package:flutter_google_maps/flutter_google_maps.dart';
 import 'package:http/http.dart';
@@ -318,5 +319,51 @@ class ApiService {
       entry = Statistics.fromJson(jsonDecoded);
     }
     return entry;
+  }
+
+  Future<List<ToDoModel>> getToDos(User userInfo) async {
+    Response response = await get(
+      '$apiUrl/todo/getTodo/' + userInfo.userName,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+    );
+    var entries = List<ToDoModel>();
+    if (response.statusCode == 200) {
+      print(response.body);
+      final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
+      for (var jsonObject in jsonDecoded) {
+        entries.add(ToDoModel.fromJson(jsonObject));
+      }
+    }
+    return entries;
+  }
+
+  Future<Response> addToDo(User userInfo, String content) async {
+    Map data = {'content': content, 'username': userInfo.userName, 'title': ""};
+    print(data);
+    Response response = await post(
+      '$apiUrl/todo/addTodo',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+      body: jsonEncode(data),
+    );
+    print(response.body);
+    print(response.statusCode);
+    return response;
+  }
+
+  Future<void> removeTodo(int id, userInfo) async {
+    Response response = await delete(
+      '$apiUrl/todo/deleteTodo/' + id.toString(),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userInfo.token,
+      },
+    );
+    print(response.statusCode);
   }
 }

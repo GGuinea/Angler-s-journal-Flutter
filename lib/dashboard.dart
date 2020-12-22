@@ -5,6 +5,7 @@ import 'package:notatinik_wedkarza/fishing_diary.dart';
 import 'package:notatinik_wedkarza/models/user.dart';
 import 'package:notatinik_wedkarza/views/drawer/drawer.dart';
 import 'package:notatinik_wedkarza/views/social.dart';
+import 'package:notatinik_wedkarza/views/to_do/to_do.dart';
 
 class Dashboard extends StatefulWidget {
   final User userInfo;
@@ -60,7 +61,9 @@ class _DashboardState extends State<Dashboard> {
           actions: <Widget>[
             IconButton(
               onPressed: () {
-                print("go to page with timer");
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ToDo(userInfo: userInfo),
+                ));
               },
               icon: Icon(Icons.note_outlined),
             ),
