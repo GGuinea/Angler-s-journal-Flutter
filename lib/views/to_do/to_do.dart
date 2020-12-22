@@ -123,7 +123,7 @@ class _ToDoState extends State<ToDo> {
                                 child: CircularProgressIndicator(),
                               );
                             }
-                            return ReorderableListView.builder(
+                            return ListView.builder(
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               physics: ScrollPhysics(),
