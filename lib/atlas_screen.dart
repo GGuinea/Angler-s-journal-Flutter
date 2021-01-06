@@ -6,7 +6,6 @@ import 'package:notatinik_wedkarza/placeholder_widget.dart';
 import 'dart:convert';
 
 import 'package:notatinik_wedkarza/views/atlas/fishing_area/fishing_area_list.dart';
-import 'package:notatinik_wedkarza/views/maps/main_view.dart';
 import 'package:notatinik_wedkarza/views/maps/map_screen.dart';
 
 class AtlasScreen extends StatefulWidget {
