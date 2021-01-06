@@ -73,7 +73,7 @@ class ApiService {
         'Authorization': 'Bearer ' + userInfo.token,
       },
     );
-    var entries = List<FishingEntry>();
+    List<FishingEntry> entries = [];
     if (response.statusCode == 200) {
       print(response.body);
       final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
