@@ -66,7 +66,7 @@ class ApiSocial {
         'Authorization': 'Bearer ' + userInfo.token,
       },
     );
-    var entries = List<String>();
+    List<String> entries = [];
     if (response.statusCode == 200) {
       print(response.body);
       final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
@@ -145,7 +145,7 @@ class ApiSocial {
         'Authorization': 'Bearer ' + userInfo.token,
       },
     );
-    var entries = List<PostMessage>();
+    List<PostMessage> entries = [];
     if (response.statusCode == 200) {
       print(response.body);
       final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));

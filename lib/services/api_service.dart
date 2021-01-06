@@ -117,7 +117,7 @@ class ApiService {
         'Authorization': 'Bearer ' + userInfo.token,
       },
     );
-    var entries = List<DistrictEntry>();
+    List<DistrictEntry> entries = [];
     if (response.statusCode == 200) {
       print(response.body);
       final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
@@ -136,7 +136,7 @@ class ApiService {
         'Authorization': 'Bearer ' + userInfo.token,
       },
     );
-    var entries = List<FishingArea>();
+    List<FishingArea> entries = [];
     if (response.statusCode == 200) {
       print(response.body);
       final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
@@ -180,7 +180,7 @@ class ApiService {
         'Authorization': 'Bearer ' + userInfo.token,
       },
     );
-    var entries = List<MarkerData>();
+    List<MarkerData> entries = [];
     if (response.statusCode == 200) {
       print(response.body);
 
@@ -329,7 +329,7 @@ class ApiService {
         'Authorization': 'Bearer ' + userInfo.token,
       },
     );
-    var entries = List<ToDoModel>();
+    List<ToDoModel> entries = [];
     if (response.statusCode == 200) {
       print(response.body);
       final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
